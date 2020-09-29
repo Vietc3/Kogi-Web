@@ -5,6 +5,7 @@
       app
       color="teal lighten-1"
       dark
+      height="55px"
     >
       <v-toolbar-title style="width: 300px">
         <v-app-bar-nav-icon
@@ -31,16 +32,28 @@
       </v-btn>
     </v-app-bar>
 
+    <v-btn
+      v-scroll="onScroll"
+      v-show="fab"
+      fab
+      dark
+      fixed
+      bottom
+      right
+      color="teal lighten-1"
+      @click="toTop"
+    >
+      <v-icon>keyboard_arrow_up</v-icon>
+    </v-btn>
     <sideBar
       :valueMiniVariant="miniVariant"
       v-on:drawerPropsChange="handleEmit"
       :drawerProps="drawer"
     />
-    <v-main >
-      
-      <router-view  transition="scale-transition"
-        origin="center center"/>
-      
+
+    <v-main>
+      <router-view transition="scale-transition" origin="center center" />
+
       <footerApp />
     </v-main>
   </v-app>
@@ -54,7 +67,7 @@ export default {
   data() {
     return {
       drawer: false,
-
+      fab: false,
       miniVariant: false,
     };
   },
@@ -71,6 +84,14 @@ export default {
     },
     handleEmit(value) {
       this.drawer = value;
+    },
+    onScroll(e) {
+      if (typeof window === "undefined") return;
+      const top = window.pageYOffset || e.target.scrollTop || 0;
+      this.fab = top > 20;
+    },
+    toTop() {
+      this.$vuetify.goTo(0);
     },
   },
 };

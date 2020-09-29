@@ -36,7 +36,7 @@
 
           <v-card-text class="white--text">
             {{ new Date().getFullYear() }} —
-            <strong>ShipIT</strong>
+            <strong>Kogi Store</strong>
           </v-card-text>
         </v-card>
       </v-footer>

@@ -1,8 +1,8 @@
 <template>
   <div class="text-center mt-0">
     <div class="pl-10 pr-10 row">
-      <div class="col-md-12 d-sm-none d-md-flex">
-        <v-card>
+      <div class="col-md-12 d-sm-none d-md-flex pointer">
+        <v-card @click.native="test()">
           <img
             :src="listAssets[0].app_images.img_hot_banner | getAppBanner"
             class="white--text align-center"
@@ -42,7 +42,7 @@
 
     <div class="pl-10 pr-10 row">
       <v-row>
-        <div class="col-md-8 col-sm-12 col-xs-12 pl-10 pr-5 row">
+        <div class="col-md-8 col-sm-12 col-xs-12 pl-10 pr-10 pointer row">
           <div class="mb-5" v-for="(item, idx) in listAssets" :key="idx">
             <v-card>
               <img
@@ -53,7 +53,7 @@
                 height="250px"
               />
               <v-row align="center" class="mx-0">
-                <v-card-title>
+                <v-card-title style="font-weight:bold; font-size:15px">
                   <img
                     class="nameIcon"
                     :src="item.app_images.app_icon | getAppBanner"
@@ -83,13 +83,61 @@
           </div>
         </div>
 
-        <v-col class="col-md-4 col-sm-0 col-xs-0  ranking row">
+        <v-col class="col-md-4 d-sm-none d-md-flex pointer ranking row">
+          <v-card class="mb-5" style="width: 100%; height: 10%">
+            <v-card-title
+             
+              style="
+                font-size: 15px;
+                font-style: oblique;
+                width: 100%;
+                color: #26a69a;
+              "
+              >Kogi Store Discover Superb Games</v-card-title
+            >
+            <div
+             
+              class="grey--text ml-3"
+              style="
+                font-size: 12px;
+                font-style: oblique;
+                width: 100%;
+                color: #26a69a;
+                 text-align: left
+              "
+            >
+              Follow us
+            </div>
+             <v-card-actions>
+            <v-btn fab dark small color="primary">
+              <v-icon dark> mdi-facebook-box</v-icon>
+            </v-btn>
+            <v-btn fab dark small color="red">
+              <v-icon dark>mdi-instagram</v-icon>
+            </v-btn>
+            <v-btn fab dark small color="#26a69a">
+              <v-icon dark> mdi-email</v-icon>
+            </v-btn>
+            <v-btn fab dark small color="primary">
+              <v-icon dark> mdi-twitter-box</v-icon>
+            </v-btn>
+            </v-card-actions>
+          </v-card>
           <v-card>
-            <v-card-title  style="font-size: 25px;font-style:oblique; color: #26a69a;">Rankings</v-card-title>
-             <v-divider class="mb-5"></v-divider>
+            <v-card-title
+              class="justify-center"
+              style="
+                font-size: 25px;
+                font-style: oblique;
+                color: #26a69a;
+                width: 100%;
+              "
+              >Rankings</v-card-title
+            >
+            <v-divider class="mb-5"></v-divider>
             <div>
               <v-row
-                class="mx-0  align-left rankingCard"
+                class="mx-0 align-left rankingCard"
                 v-for="(item, index) in listTopRate"
                 :key="item.id"
               >
@@ -128,6 +176,29 @@
               </v-row>
             </div>
           </v-card>
+
+          <v-card class="mt-5 genres">
+            <v-card-title
+              class="justify-center"
+              style="
+                font-size: 25px;
+                font-style: oblique;
+                width: 100%;
+                color: #26a69a;
+              "
+              >Hot Game Tags</v-card-title
+            >
+            <v-divider class="mb-5"></v-divider>
+
+            <v-btn
+              class="mr-3 mb-2"
+              outlined
+              color="#26a69a"
+              v-for="item in listGenres"
+              :key="item.code"
+              >{{ item.name }}</v-btn
+            >
+          </v-card>
         </v-col>
       </v-row>
     </div>
@@ -137,6 +208,7 @@
 <script>
 import RepositoryFactory from "@/utils/RepositoryFactory";
 const AssetsRepository = RepositoryFactory.get("assets");
+const GenresRepository = RepositoryFactory.get("genres");
 import variables from "@/variables";
 
 export default {
@@ -147,13 +219,22 @@ export default {
     },
   },
   data() {
-    return { listAssets: [], listTopRate: [] };
+    return { listAssets: [], listTopRate: [], listGenres: [] };
   },
   created() {
     this.fetchHome();
     this.fetchTopRate();
+    this.fetchGenres();
   },
   methods: {
+    test: () => {
+      console.log("test");
+    },
+    async fetchGenres() {
+      const { data } = await GenresRepository.get();
+      this.listGenres = data.results;
+    },
+
     doMath: function (index) {
       return index + 1;
     },
@@ -198,14 +279,24 @@ export default {
   text-align: center;
   margin: 10px;
 }
+.flex-container > v-btn {
+  text-align: center;
+  margin: 10px;
+}
 .v-card__title {
   width: 50%;
+      padding: 8px;
 }
 .icon {
 }
 .ranking {
-  height: 25%;
+  height: 30%;
 }
+.genres {
+  height: 25%;
+  word-wrap: break-word;
+}
+
 .itemRanking {
   height: 30%;
   width: 30%;
@@ -217,9 +308,13 @@ export default {
   padding-top: 20px;
   width: 20%;
   color: #26a69a;
-  font-style:oblique;
+  font-style: oblique;
 }
 .rankingCard {
   margin-bottom: 10px;
+}
+
+.pointer {
+  cursor: pointer;
 }
 </style>

@@ -5,6 +5,7 @@
     :permanent="$vuetify.breakpoint.mdAndUp"
     :mini-variant="valueMiniVariant"
     v-model="drawerProps"
+width="240"
     app
   >
     <v-list>
