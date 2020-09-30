@@ -7,7 +7,7 @@
       dark
       height="55px"
     >
-      <v-toolbar-title style="width: 300px">
+      <v-toolbar-title style="width: 300px;text-align: left;">
         <v-app-bar-nav-icon
           @click.stop="handleClick"
           class="ma-2"
@@ -98,6 +98,6 @@ export default {
 </script>
 <style scoped>
 .v-navigation-drawer {
-  margin-top: 65px;
+  margin-top: 55px;
 }
 </style>

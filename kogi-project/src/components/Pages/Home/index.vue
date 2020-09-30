@@ -2,14 +2,15 @@
   <div class="text-center mt-0">
     <div class="pl-10 pr-10 row">
       <div class="col-md-12 d-sm-none d-md-flex pointer">
-        <v-card @click.native="test()">
+        <v-card>
           <img
             :src="listAssets[0].app_images.img_hot_banner | getAppBanner"
+            @click="test(listAssets[0])"
             class="white--text align-center"
             height="400px"
             width="100%"
           />
-          <v-row align="center" class="mx-0">
+          <v-row align="center" class="mx-0" @click="test(listAssets[0])">
             <v-card-title class="title">
               <img
                 class="nameIcon"
@@ -19,7 +20,7 @@
               />
               {{ listAssets[0].name }}
             </v-card-title>
-            <div class="review">
+            <div class="review" @click="test(listAssets[0])">
               <v-rating
                 :value="listAssets[0].metrics.vote_average"
                 color="amber"
@@ -43,7 +44,7 @@
     <div class="pl-10 pr-10 row">
       <v-row>
         <div class="col-md-8 col-sm-12 col-xs-12 pl-10 pr-10 pointer row">
-          <div class="mb-5" v-for="(item, idx) in listAssets" :key="idx">
+          <div class="mb-5" v-for="(item, idx) in listAssets" :key="idx"  @click="test(item)">
             <v-card>
               <img
                 :src="item.app_images.img_hot_banner | getAppBanner"
@@ -53,7 +54,7 @@
                 height="250px"
               />
               <v-row align="center" class="mx-0">
-                <v-card-title style="font-weight:bold; font-size:15px">
+                <v-card-title style="font-weight: bold; font-size: 15px">
                   <img
                     class="nameIcon"
                     :src="item.app_images.app_icon | getAppBanner"
@@ -86,49 +87,48 @@
         <v-col class="col-md-4 d-sm-none d-md-flex pointer ranking row">
           <v-card class="mb-5" style="width: 100%; height: 10%">
             <v-card-title
-             
               style="
                 font-size: 15px;
-                font-style: oblique;
+                font-weigth: bold;
                 width: 100%;
                 color: #26a69a;
               "
               >Kogi Store Discover Superb Games</v-card-title
             >
             <div
-             
               class="grey--text ml-3"
               style="
                 font-size: 12px;
                 font-style: oblique;
                 width: 100%;
                 color: #26a69a;
-                 text-align: left
+                text-align: left;
               "
             >
               Follow us
             </div>
-             <v-card-actions>
-            <v-btn fab dark small color="primary">
-              <v-icon dark> mdi-facebook-box</v-icon>
-            </v-btn>
-            <v-btn fab dark small color="red">
-              <v-icon dark>mdi-instagram</v-icon>
-            </v-btn>
-            <v-btn fab dark small color="#26a69a">
-              <v-icon dark> mdi-email</v-icon>
-            </v-btn>
-            <v-btn fab dark small color="primary">
-              <v-icon dark> mdi-twitter-box</v-icon>
-            </v-btn>
+            <v-card-actions>
+              <v-btn fab dark small color="primary">
+                <v-icon dark> mdi-facebook-box</v-icon>
+              </v-btn>
+              <v-btn fab dark small color="red">
+                <v-icon dark>mdi-instagram</v-icon>
+              </v-btn>
+              <v-btn fab dark small color="#26a69a">
+                <v-icon dark> mdi-email</v-icon>
+              </v-btn>
+              <v-btn fab dark small color="primary">
+                <v-icon dark> mdi-twitter-box</v-icon>
+              </v-btn>
             </v-card-actions>
           </v-card>
+          
           <v-card>
             <v-card-title
               class="justify-center"
               style="
                 font-size: 25px;
-                font-style: oblique;
+                font-weigth: bold;
                 color: #26a69a;
                 width: 100%;
               "
@@ -137,6 +137,7 @@
             <v-divider class="mb-5"></v-divider>
             <div>
               <v-row
+              @click="test(item)"
                 class="mx-0 align-left rankingCard"
                 v-for="(item, index) in listTopRate"
                 :key="item.id"
@@ -153,7 +154,7 @@
                 </div>
                 <div align="left" class="rankingItemName">
                   <div
-                    style="font-size: 12px; margin-right: 50%; color: #26a69a"
+                    style="font-size: 12px; margin-right: 30%; color: #26a69a"
                   >
                     {{ item.name }}
                   </div>
@@ -182,7 +183,7 @@
               class="justify-center"
               style="
                 font-size: 25px;
-                font-style: oblique;
+              font-weigth: bold;
                 width: 100%;
                 color: #26a69a;
               "
@@ -209,12 +210,16 @@
 import RepositoryFactory from "@/utils/RepositoryFactory";
 const AssetsRepository = RepositoryFactory.get("assets");
 const GenresRepository = RepositoryFactory.get("genres");
+let brand_icon_default = require("@/assets/icon-default.png");
 import variables from "@/variables";
 
 export default {
   name: "Home",
   filters: {
     getAppBanner(value) {
+      if (value === "") {
+        return this.brand_icon_default;
+      }
       return variables.urlImage + "/" + value;
     },
   },
@@ -227,8 +232,8 @@ export default {
     this.fetchGenres();
   },
   methods: {
-    test: () => {
-      console.log("test");
+    test(value) {
+      this.$router.push({ name: "Info", params: { id: value.id } });
     },
     async fetchGenres() {
       const { data } = await GenresRepository.get();
@@ -285,7 +290,7 @@ export default {
 }
 .v-card__title {
   width: 50%;
-      padding: 8px;
+  padding: 8px;
 }
 .icon {
 }
