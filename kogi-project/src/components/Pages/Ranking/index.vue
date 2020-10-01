@@ -1,8 +1,6 @@
 <template>
   <div>
-   
-
-    <div>
+    <div >
       <v-avatar class="ma-1 mt-5" size="100" tile
         ><v-img class="icon" :src="brand_icon_default"></v-img>
       </v-avatar>
@@ -92,7 +90,7 @@
                   ></v-btn>
                 </div>
 
-                <div class="ml-0">
+                <div class="ml-4 " style="text-align: left;">
                   <v-btn class="mt-3" color="teal" large dark>
                     Download
                     <v-icon dark>mdi-cellphone-android</v-icon>
@@ -103,11 +101,11 @@
                   </v-btn>
                 </div>
                 <div
-                  style="height: 100px pointer"
+                  style="height:100px "
                   @click="redirecAppInfo(item)"
                 >
                   <v-card-text
-                    class="text-left hiddenOverFlow"
+                    class="text-left hiddenOverFlow pointer"
                     style="height: 60%"
                     >{{ item.description }}</v-card-text
                   >
@@ -161,7 +159,7 @@ export default {
   created() {
     this.fetchTopRate();
   },
-  
+
   filters: {
     getAppBanner(value) {
       if (value === "") {
