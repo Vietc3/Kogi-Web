@@ -1,6 +1,18 @@
 <template>
   <div class="pl-10 pr-10 row" >
-    <v-row>
+   
+  <v-progress-circular
+      :active="loading"
+      :indeterminate="loading"
+      :class="loading===false?'d-none':null"
+      absolute
+      bottom
+      color="teal"
+      style="margin-bottom:10px; margin-left:48%"
+    ></v-progress-circular>
+
+    <v-row v-if="loading===false">
+
       <div class="col-md-8 col-sm-12 col-xs-12 pl-10 pr-10 row">
         <div class="mb-5 col-12" height="100%">
           <v-card class="col-12">
@@ -43,7 +55,7 @@
                   ></v-btn>
                 </div>
 
-                <v-card-action class="ml-4">
+                <div class="ml-4">
                   <v-btn class="mt-3" color="teal" large dark>
                     Download
                     <v-icon dark>mdi-cellphone-android</v-icon>
@@ -52,7 +64,7 @@
                     Google Play
                     <v-icon dark>mdi-google-play</v-icon>
                   </v-btn>
-                </v-card-action>
+                </div>
               </div>
             </div>
           </v-card>
@@ -175,16 +187,18 @@
         </div>
       </div>
 
-      <v-col class="col-md-4 d-sm-none d-md-flex ranking row" style="height:1200px;">
-        <v-card class="col-12" style="height: 180px;" >
-          <v-card-title
+      <v-col class="col-md-4 d-sm-none d-md-flex ranking row mt-3" style="height:1200px;">
+        <v-card class="col-12" style="height: 150px;" >
+          <v-card-text
             style="
               font-size: 15px;
               font-style: oblique;
               width: 100%;
               color: #26a69a;
+              margin-top:0px
+              padding-top:0px !important
             "
-            >Kogi Store Discover Superb Games</v-card-title
+            >Kogi Store Discover Superb Games</v-card-text
           >
           <div
             class="grey--text ml-3"
@@ -222,13 +236,14 @@
               font-weigth: bold;
               color: #26a69a;
               width: 100%;
+                 padding-top:0px !important
             "
             >Similars</v-card-title
           >
           <v-divider class="mb-5"></v-divider>
           <div>
             <v-row
-              @click="test(item)"
+              
               class="mx-0 align-left rankingCard"
               v-for="(item, index) in listSimilar"
               :key="item.id"
@@ -237,13 +252,14 @@
               <div class="itemRanking">
                 <img
                   :src="item.app_images.app_icon | getAppBanner"
-                  class="white--text align-center icon"
+                  class="white--text align-center pointer icon"
                   gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
                   width="60%"
                   height="60px"
+                  @click="redirecAppInfo(item)"
                 />
               </div>
-              <div align="left" class="rankingItemName">
+              <div align="left" class="rankingItemName pointer" @click="redirecAppInfo(item)">
                 <div style="font-size: 12px; margin-right: 30%; color: #26a69a">
                   {{ item.name }}
                 </div>
@@ -283,6 +299,7 @@ export default {
       asset: [],
       listSimilar: [],
       listRatingComment: [],
+      loading: true,
     };
   },
 
@@ -300,6 +317,26 @@ export default {
   },
 
   methods: {
+     async redirecAppInfo(value) {
+        this.loading= true;
+        const { data } = await AssetsRepository.findAssetById(
+        value.id
+      );
+      const dataComment = await AssetsRepository.findRatingComments(
+        value.id
+      );
+      const dataSimilar = await AssetsRepository.findAssetByGenres(
+        data.genres_code
+      );
+
+      this.asset = data;
+
+      this.listSimilar = dataSimilar.data.results;
+       this.listSimilar= this.listSimilar.filter((similar,index)=>{return index<=9})
+      this.listRatingComment = dataComment.data;
+      this.loading= false;
+
+    },
     async fetchAsset() {
       const { data } = await AssetsRepository.findAssetById(
         this.$route.params.id
@@ -316,6 +353,7 @@ export default {
       this.listSimilar = dataSimilar.data.results;
        this.listSimilar= this.listSimilar.filter((similar,index)=>{return index<=9})
       this.listRatingComment = dataComment.data;
+      this.loading= false;
     },
   },
 };
@@ -338,6 +376,9 @@ export default {
 }
 .rankingCard {
   margin-bottom: 10px;
+}
+.pointer {
+  cursor: pointer;
 }
 
 </style>

@@ -1,6 +1,16 @@
 <template>
   <div class="text-center mt-0">
-    <div class="pl-10 pr-10 row">
+     <v-progress-circular
+      :active="loading"
+      :indeterminate="loading"
+      :class="loading===false?'d-none':null"
+      absolute
+      bottom
+      color="teal"
+      style="margin-bottom:10px"
+    ></v-progress-circular>
+
+    <div class="pl-10 pr-10 row" v-if="loading===false">
       <div class="col-md-12 d-sm-none d-md-flex pointer">
         <v-card>
           <img
@@ -41,7 +51,11 @@
       </div>
     </div>
 
-    <div class="pl-10 pr-10 row">
+
+
+
+
+    <div class="pl-10 pr-10 row"  v-if="loading===false">
       <v-row>
         <div class="col-md-8 col-sm-12 col-xs-12 pl-10 pr-10 pointer row">
           <div class="mb-5" v-for="(item, idx) in listAssets" :key="idx"  @click="test(item)">
@@ -224,7 +238,7 @@ export default {
     },
   },
   data() {
-    return { listAssets: [], listTopRate: [], listGenres: [] };
+    return { listAssets: [],loading: true, listTopRate: [], listGenres: [],page:1 };
   },
   created() {
     this.fetchHome();
@@ -246,10 +260,11 @@ export default {
     async fetchHome() {
       const { data } = await AssetsRepository.getHome();
       this.listAssets = data.results;
+       this.loading = false;
     },
 
     async fetchTopRate() {
-      const { data } = await AssetsRepository.getTopRate();
+      const { data } = await AssetsRepository.getTopRate(this.page);
       this.listTopRate = data.results;
     },
   },

@@ -52,7 +52,7 @@
     />
 
     <v-main>
-      <router-view transition="scale-transition" origin="center center" />
+      <router-view  origin="center center" />
 
       <footerApp />
     </v-main>
