@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div >
+    <div>
       <v-avatar class="ma-1 mt-5" size="100" tile
         ><v-img class="icon" :src="brand_icon_default"></v-img>
       </v-avatar>
@@ -10,22 +10,27 @@
       <v-divider class="mx-10 mt-5"></v-divider>
     </div>
 
-    <div>
+    <div class="col-12">
       <v-btn-toggle v-model="queryBy" tile color="teal" group>
-        <v-btn v-for="(item, idx) in filterTopAsset" :value="item" :key="idx">
+        <v-btn
+          v-for="(item, idx) in filterTopAsset"
+          :value="item"
+          width="22%"
+          :key="idx"
+        >
           {{ item }}
         </v-btn>
       </v-btn-toggle>
     </div>
 
-     <v-progress-circular
+    <v-progress-circular
       :active="loading"
       :indeterminate="loading"
-      :class="loading===false?'d-none':null"
+      :class="loading === false ? 'd-none' : null"
       absolute
       bottom
       color="teal"
-      style="margin-bottom:10px"
+      style="margin-bottom: 10px"
     ></v-progress-circular>
 
     <div v-if="list.toString() === ''">
@@ -38,16 +43,30 @@
       </v-card>
     </div>
 
-  
-    <div class="ml-5 d-flex" v-for="(item, idx) in list" :key="idx"  v-else>
-      <div class="col-md-12 col-sm-12 col-xs-12 pl-10 pr-10 row" v-if="loading===false" >
-        <div class="mb-5 col-12" height="100%">
-          <v-card class="col-12">
+    <div
+      :class="$vuetify.breakpoint.mobile ? 'd-flex' : 'ml-5 d-flex'"
+      v-for="(item, idx) in list"
+      :key="idx"
+      v-else
+    >
+      <div
+        :class="
+          $vuetify.breakpoint.mobile
+            ? 'col-xl-12 col-md-12 col-sm-12 col-xs-12 row'
+            : 'col-xl-12 col-md-12 col-sm-12 col-xs-12 pl-10 pr-10 row'
+        "
+        v-if="loading === false"
+      >
+        <div
+          :class="$vuetify.breakpoint.mobile ? 'col-12' : 'mb-5 col-12'"
+          height="100%"
+        >
+          <v-card class="col-12" elevation="5">
             <div class="d-flex justify-space">
               <div>
                 <v-avatar
                   class="ma-3 pointer"
-                  size="200"
+                  :size="$vuetify.breakpoint.smAndDown ? 110 : 200"
                   tile
                   @click="redirecAppInfo(item)"
                 >
@@ -68,11 +87,19 @@
                 ></v-rating>
               </div>
 
-              <div>
+              <div class="col-xl-5 col-md-5 col-sm-12 col-xs-12">
                 <v-card-title
                   class="headline"
                   v-text="item.name"
+                  v-if="$vuetify.breakpoint.mobile === false"
                 ></v-card-title>
+
+                <v-card-text
+                  v-else
+                  class="headline"
+                  v-text="item.name"
+                ></v-card-text>
+
                 <div class="d-flex">
                   <v-btn
                     class="pt-0 ml-4 mr-2"
@@ -90,8 +117,12 @@
                   ></v-btn>
                 </div>
 
-                <div class="ml-4 " style="text-align: left;">
-                  <v-btn class="mt-3" color="teal" large dark>
+                <div
+                  class="col-4 d-md-flex d-sm-none d-xs-none"
+                  style="text-align: left"
+                  v-if="$vuetify.breakpoint.mobile === false"
+                >
+                  <v-btn class="mt-3 mr-2" @click="downloadGame(item)" color="teal" large dark>
                     Download
                     <v-icon dark>mdi-cellphone-android</v-icon>
                   </v-btn>
@@ -100,20 +131,42 @@
                     <v-icon dark>mdi-google-play</v-icon>
                   </v-btn>
                 </div>
+
+                <div style="text-align: left" v-else>
+                  <v-btn class="mt-3 mr-2"   color="teal" width="100%" @click="downloadGame(item)" large dark>
+                    Download
+                    <v-icon dark>mdi-cellphone-android</v-icon>
+                  </v-btn>
+                  <v-btn class="mt-3" color="teal" width="100%" large dark>
+                    Google Play
+                    <v-icon dark>mdi-google-play</v-icon>
+                  </v-btn>
+                </div>
+
                 <div
-                  style="height:100px "
+                  :class="$vuetify.breakpoint.mobile ? 'd-none' : null"
+                  style="height: 100px"
                   @click="redirecAppInfo(item)"
                 >
                   <v-card-text
                     class="text-left hiddenOverFlow pointer"
-                    style="height: 60%"
+                    :style="
+                      $vuetify.breakpoint.smAndDown
+                        ? 'height: 60%;width:70%'
+                        : 'height: 60%;width:100%'
+                    "
                     >{{ item.description }}</v-card-text
                   >
                 </div>
               </div>
 
-              <div>
-                <v-avatar class="ml-10" size="250" width="340px" tile>
+              <div class="col-xl-4 col-md-4 d-md-flex d-sm-none d-xs-none">
+                <v-avatar
+                  class="ml-10"
+                  size="250"
+                  :width="$vuetify.breakpoint.smAndDown ? '50px' : '100%'"
+                  tile
+                >
                   <img
                     class="icon"
                     height="150px"
@@ -126,8 +179,8 @@
       </div>
     </div>
 
-    <div v-if="loading===false && list.toString() !== '' " >
-      <v-btn class="mb-3" color="teal" large dark @click="more()" >
+    <div v-if="loading === false && list.toString() !== ''">
+      <v-btn class="mb-3" color="teal" large dark @click="more()">
         <v-icon dark>mdi-view-grid-plus</v-icon>
         MORE
       </v-btn>
@@ -194,6 +247,13 @@ export default {
   },
 
   methods: {
+
+    downloadGame(asset) {
+      window.location.href =
+        variables.urlImage +
+        "/" +
+        asset.app[asset.app.length - 1].apk_url;
+    },
     redirecAppInfo(value) {
       this.$router.push({ name: "Info", params: { id: value.id } });
     },

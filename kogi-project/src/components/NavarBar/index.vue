@@ -1,7 +1,7 @@
 <template>
   <v-app id="inspire">
     <v-app-bar
-      :clipped-left="$vuetify.breakpoint.lgAndUp"
+      :clipped-left="$vuetify.breakpoint.mdAndUp"
       app
       color="teal lighten-1"
       dark
@@ -45,6 +45,7 @@
     >
       <v-icon>keyboard_arrow_up</v-icon>
     </v-btn>
+
     <sideBar
       :valueMiniVariant="miniVariant"
       v-on:drawerPropsChange="handleEmit"
@@ -53,9 +54,12 @@
 
     <v-main>
       <router-view  origin="center center" />
-
       <footerApp />
     </v-main>
+
+
+
+
   </v-app>
 </template>
 <script>

@@ -10,8 +10,8 @@
       style="margin-bottom:10px"
     ></v-progress-circular>
 
-    <div class="pl-10 pr-10 row" v-if="loading===false">
-      <div class="col-md-12 d-sm-none d-md-flex pointer">
+    <div :class="$vuetify.breakpoint.mobile?'d-none':'pl-10 pr-10 row'" v-if="loading===false">
+      <div class="col-md-12  d-sm-none d-md-flex pointer">
         <v-card>
           <img
             :src="listAssets[0].app_images.img_hot_banner | getAppBanner"
@@ -21,14 +21,14 @@
             width="100%"
           />
           <v-row align="center" class="mx-0" @click="test(listAssets[0])">
-            <v-card-title class="title">
+            <v-card-title  :class="$vuetify.breakpoint.mobile?'d-flex col-12 ml-5':null">
               <img
                 class="nameIcon"
                 :src="listAssets[0].app_images.app_icon | getAppBanner"
                 height="30px"
                 max-width="10%"
               />
-              {{ listAssets[0].name }}
+              <div>{{ listAssets[0].name }}</div>
             </v-card-title>
             <div class="review" @click="test(listAssets[0])">
               <v-rating
@@ -55,9 +55,9 @@
 
 
 
-    <div class="pl-10 pr-10 row"  v-if="loading===false">
+    <div :class="$vuetify.breakpoint.mobile?null:'pl-10 pr-10 row'" v-if="loading===false">
       <v-row>
-        <div class="col-md-8 col-sm-12 col-xs-12 pl-10 pr-10 pointer row">
+        <div :class="$vuetify.breakpoint.mobile?'col-md-8 col-sm-12 col-xs-12 pl-11 pointer row':'col-md-8 col-sm-12 col-xs-12 pl-10 pr-10 pointer row'">
           <div class="mb-5" v-for="(item, idx) in listAssets" :key="idx"  @click="test(item)">
             <v-card>
               <img
@@ -67,15 +67,17 @@
                 width="100%"
                 height="250px"
               />
-              <v-row align="center" class="mx-0">
-                <v-card-title style="font-weight: bold; font-size: 15px">
+
+
+              <v-row align="center" class="mx-0" v-if="$vuetify.breakpoint.mobile===false">
+                <v-card-title  style="font-weight: bold; font-size: 15px">
                   <img
                     class="nameIcon"
                     :src="item.app_images.app_icon | getAppBanner"
                     height="30px"
                     max-width="10%"
                   />
-                  {{ item.name }}
+                  <div>{{ item.name }}</div>
                 </v-card-title>
                 <div class="review">
                   <v-rating
@@ -94,12 +96,47 @@
                   </div>
                 </div>
               </v-row>
+
+
+              
+              <v-row align="center" class="mx-0" v-else>
+                <v-card-title class="d-flex col-12 " style="font-weight: bold; font-size: 15px">
+                  <img
+                    class="nameIcon"
+                    :src="item.app_images.app_icon | getAppBanner"
+                    height="30px"
+                    max-width="10%"
+                  />
+                  <div>{{ item.name }}</div>
+                    <div class="review-mobile">
+                  <v-rating
+                    :value="item.metrics.vote_average"
+                    color="amber"
+                    dense
+                    half-increments
+                    readonly
+                    size="14"
+                  ></v-rating>
+                  <div class="grey--text">
+                    {{ item.metrics.vote_average }}({{
+                      item.metrics.popularity
+                    }}
+                    reviews)
+                  </div>
+                </div>
+                </v-card-title>
+              
+              </v-row>
+
+
+
+
             </v-card>
           </div>
         </div>
 
-        <v-col class="col-md-4 d-sm-none d-md-flex pointer ranking row">
-          <v-card class="mb-5" style="width: 100%; height: 10%">
+        <v-col class="col-md-4 d-sm-none d-md-flex pointer ranking row" :style="$vuetify.breakpoint.mobile?'display:none':null">
+          <v-card class="mb-5" style="width: 100%; height: 10%"  elevation="5">
             <v-card-title
               style="
                 font-size: 15px;
@@ -192,7 +229,7 @@
             </div>
           </v-card>
 
-          <v-card class="mt-5 genres">
+          <v-card class="mt-5 genres"   elevation="5">
             <v-card-title
               class="justify-center"
               style="
@@ -288,6 +325,11 @@ export default {
 .review {
   text-align: right;
   padding-left: 28%;
+  color: #26a69a;
+}
+.review-mobile {
+  text-align: right;
+  padding-left: 20%;
   color: #26a69a;
 }
 .flex-container {

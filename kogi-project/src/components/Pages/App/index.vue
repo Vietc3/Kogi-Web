@@ -1,29 +1,38 @@
 <template>
-  <div class="pl-10 pr-10 row" >
-   
-  <v-progress-circular
+  <div :class="$vuetify.breakpoint.smAndDown ? 'pl-2  row' : 'pl-10 pr-10 row'">
+    <v-progress-circular
       :active="loading"
       :indeterminate="loading"
-      :class="loading===false?'d-none':null"
+      :class="loading === false ? 'd-none' : null"
       absolute
       bottom
       color="teal"
-      style="margin-bottom:10px; margin-left:48%"
+      style="margin-bottom: 10px; margin-left: 48%"
     ></v-progress-circular>
 
-    <v-row v-if="loading===false">
-
-      <div class="col-md-8 col-sm-12 col-xs-12 pl-10 pr-10 row">
+    <v-row v-if="loading === false">
+      <div
+        :class="
+          $vuetify.breakpoint.mobile
+            ? 'col-md-8 col-sm-12 col-xs-12  pr-5 row'
+            : 'col-md-8 col-sm-12 col-xs-12 pl-10 pr-10 row'
+        "
+      >
         <div class="mb-5 col-12" height="100%">
-          <v-card class="col-12">
+          <v-card class="col-12" elevation="5">
             <div class="d-flex justify-space-between">
               <div>
-                <v-avatar class="ma-3" size="200" tile>
+                <v-avatar
+                  class="ma-3"
+                  :size="$vuetify.breakpoint.smAndDown ? 110 : 200"
+                  tile
+                >
                   <v-img
                     class="icon"
                     :src="asset.app_images.app_icon | getAppBanner"
                   />
                 </v-avatar>
+
                 <v-rating
                   :value="asset.metrics.vote_average"
                   color="amber"
@@ -33,11 +42,20 @@
                   size="18"
                 ></v-rating>
               </div>
+
               <div>
                 <v-card-title
                   class="headline"
                   v-text="asset.name"
+                  v-if="$vuetify.breakpoint.mobile === false"
                 ></v-card-title>
+
+                <v-card-text
+                  v-else
+                  class="headline text-left"
+                  v-text="asset.name"
+                ></v-card-text>
+
                 <div class="d-flex">
                   <v-btn
                     class="pt-0 ml-4 mr-2"
@@ -55,8 +73,14 @@
                   ></v-btn>
                 </div>
 
-                <div class="ml-4">
-                  <v-btn class="mt-3" color="teal" large dark>
+                <div class="ml-4" v-if="$vuetify.breakpoint.mobile === false">
+                  <v-btn
+                    class="mt-3"
+                    color="teal"
+                    @click="downloadGame()"
+                    large
+                    dark
+                  >
                     Download
                     <v-icon dark>mdi-cellphone-android</v-icon>
                   </v-btn>
@@ -65,11 +89,22 @@
                     <v-icon dark>mdi-google-play</v-icon>
                   </v-btn>
                 </div>
+
+                <div class="" v-else>
+                  <v-btn class="mt-3"  @click="downloadGame()" color="teal" width="100%" dark>
+                    Download
+                    <v-icon dark>mdi-cellphone-android</v-icon>
+                  </v-btn>
+                  <v-btn class="mt-3" color="teal" width="100%" dark>
+                    Google Play
+                    <v-icon dark>mdi-google-play</v-icon>
+                  </v-btn>
+                </div>
               </div>
             </div>
           </v-card>
 
-          <v-card class="col-12 mt-5">
+          <v-card class="col-12 mt-5" elevation="5">
             <v-card-title class="headline font-weight-bold text-center">
               Details
             </v-card-title>
@@ -121,10 +156,9 @@
             </div>
           </v-card>
 
-          <v-expansion-panels accordion >
-            <v-expansion-panel class="col-12 mt-5" >
+          <v-expansion-panels accordion>
+            <v-expansion-panel class="col-12 mt-5">
               <v-expansion-panel-header
-              
                 class="headline font-weight-bold text-center"
                 >Description</v-expansion-panel-header
               >
@@ -144,7 +178,7 @@
             </v-expansion-panel>
           </v-expansion-panels>
 
-          <v-card class="col-12 mt-5" >
+          <v-card class="col-12 mt-5" elevation="5">
             <v-card-title>
               <v-icon large left> mdi-message </v-icon>
               <span class="title font-weight-light">Comment</span>
@@ -187,8 +221,13 @@
         </div>
       </div>
 
-      <v-col class="col-md-4 d-sm-none d-md-flex ranking row mt-3" style="height:1200px;">
-        <v-card class="col-12" style="height: 150px;" >
+      <v-col
+        :class="
+          $vuetify.breakpoint.mobile ? 'd-none' : 'col-md-4 ranking row mt-3'
+        "
+        style="height: 1200px"
+      >
+        <v-card class="col-12" style="height: 150px" elevation="5">
           <v-card-text
             style="
               font-size: 15px;
@@ -196,7 +235,9 @@
               width: 100%;
               color: #26a69a;
               margin-top:0px
+              
               padding-top:0px !important
+
             "
             >Kogi Store Discover Superb Games</v-card-text
           >
@@ -228,7 +269,7 @@
           </v-card-actions>
         </v-card>
 
-        <v-card class="col-12 mb-8 mt-5">
+        <v-card class="col-12 mb-8 mt-5" elevation="5">
           <v-card-title
             class="justify-center"
             style="
@@ -236,14 +277,13 @@
               font-weigth: bold;
               color: #26a69a;
               width: 100%;
-                 padding-top:0px !important
+              padding-top: 0px !important;
             "
             >Similars</v-card-title
           >
           <v-divider class="mb-5"></v-divider>
           <div>
             <v-row
-              
               class="mx-0 align-left rankingCard"
               v-for="(item, index) in listSimilar"
               :key="item.id"
@@ -259,7 +299,11 @@
                   @click="redirecAppInfo(item)"
                 />
               </div>
-              <div align="left" class="rankingItemName pointer" @click="redirecAppInfo(item)">
+              <div
+                align="left"
+                class="rankingItemName pointer"
+                @click="redirecAppInfo(item)"
+              >
                 <div style="font-size: 12px; margin-right: 30%; color: #26a69a">
                   {{ item.name }}
                 </div>
@@ -317,14 +361,15 @@ export default {
   },
 
   methods: {
-     async redirecAppInfo(value) {
-        this.loading= true;
-        const { data } = await AssetsRepository.findAssetById(
-        value.id
-      );
-      const dataComment = await AssetsRepository.findRatingComments(
-        value.id
-      );
+    downloadGame() {
+      window.location.href =
+        variables.urlImage + "/" + this.asset.app[this.asset.app.length - 1].apk_url;
+    },
+
+    async redirecAppInfo(value) {
+      this.loading = true;
+      const { data } = await AssetsRepository.findAssetById(value.id);
+      const dataComment = await AssetsRepository.findRatingComments(value.id);
       const dataSimilar = await AssetsRepository.findAssetByGenres(
         data.genres_code
       );
@@ -332,10 +377,11 @@ export default {
       this.asset = data;
 
       this.listSimilar = dataSimilar.data.results;
-       this.listSimilar= this.listSimilar.filter((similar,index)=>{return index<=9})
+      this.listSimilar = this.listSimilar.filter((similar, index) => {
+        return index <= 9;
+      });
       this.listRatingComment = dataComment.data;
-      this.loading= false;
-
+      this.loading = false;
     },
     async fetchAsset() {
       const { data } = await AssetsRepository.findAssetById(
@@ -351,9 +397,11 @@ export default {
       this.asset = data;
 
       this.listSimilar = dataSimilar.data.results;
-       this.listSimilar= this.listSimilar.filter((similar,index)=>{return index<=9})
+      this.listSimilar = this.listSimilar.filter((similar, index) => {
+        return index <= 9;
+      });
       this.listRatingComment = dataComment.data;
-      this.loading= false;
+      this.loading = false;
     },
   },
 };
@@ -380,5 +428,4 @@ export default {
 .pointer {
   cursor: pointer;
 }
-
 </style>
