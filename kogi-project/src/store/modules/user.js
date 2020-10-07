@@ -33,7 +33,6 @@ const user = {
     },
 
     actions: {
-
         getInfoUser: async ({ commit, state }) => {
             firebase.auth().onAuthStateChanged(async user => {
                 if (user) {
@@ -104,9 +103,9 @@ const user = {
                 await commit('SET_PHOTO', '')
                 await commit('SET_PHONE_NUMBER', '')
                 await commit('SET_TOKEN', '')
-                alert("Logout thành công")
+                
             }).catch(function (error) {
-                alert("Đã có lỗi xảy ra trong quá trình logout. Xin thử lại")
+              
             });
 
         },

@@ -261,12 +261,21 @@ export default {
       });
 
       if (result.success === false) {
+        this.alertSuccess = false;
         this.alertFail = true;
         this.message = result.message;
       } else {
-        this.step = 1;
-        this.email = "";
-        this.password = "";
+        this.alertFail = false;
+        this.alertSuccess = true;
+
+        setTimeout(() => {
+          this.alertFail = false;
+          this.alertSuccess = false;
+
+          this.step = 1;
+          this.email = "";
+          this.password = "";
+        }, 500);
       }
     },
 
@@ -277,11 +286,17 @@ export default {
       });
       console.log(result);
       if (result.success === false) {
+        this.alertSuccess = false;
         this.alertFail = true;
         this.message = result.message;
       } else {
+        this.alertFail = false;
         this.alertSuccess = true;
-        setTimeout(() => this.$router.push({ name: "Home" }), 2000);
+        setTimeout(() => {
+          this.alertFail = false;
+          this.alertSuccess = false;
+          this.$router.push({ name: "Home" });
+        }, 500);
       }
     },
 
