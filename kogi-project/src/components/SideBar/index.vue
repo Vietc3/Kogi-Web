@@ -10,22 +10,23 @@
   >
     <v-list>
       <v-list-item
-        v-for="link in links"
-        :key="link.text"
+        v-for="routerLink in routerPath"
+        :key="routerLink.name"
         router
-        :to="link.router"
+        :to="routerLink.path"
         active-class="border"
       >
         <v-list-item-action>
-          <v-icon>{{ link.icon }}</v-icon>
+          <v-icon>{{ routerLink.meta.icon }}</v-icon>
         </v-list-item-action>
-        <v-list-item-content>{{ link.text }}</v-list-item-content>
+        <v-list-item-content>{{ routerLink.meta.title }}</v-list-item-content>
       </v-list-item>
     </v-list>
   </v-navigation-drawer>
 </template>
 
 <script>
+import routerPath from "@/router/index";
 export default {
   name: "SideBar",
   props: ["valueMiniVariant", "drawerProps"],
@@ -37,11 +38,7 @@ export default {
   },
   data: () => {
     return {
-      links: [
-        { icon: "fas fa-home", text: "Home", router: "/" },
-        { icon: "mdi-trophy", text: "Rankings", router: "/rankings" },
-        { icon: "mdi-compass-outline", text: "Discover", router: "/discover" },
-      ],
+      routerPath:routerPath.options.routes[0].children,
     };
   },
 };

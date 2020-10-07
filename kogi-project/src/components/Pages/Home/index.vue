@@ -57,14 +57,14 @@
 
     <div :class="$vuetify.breakpoint.mobile?null:'pl-10 pr-10 row'" v-if="loading===false">
       <v-row>
-        <div :class="$vuetify.breakpoint.mobile?'col-md-8 col-sm-12 col-xs-12 pl-11 pointer row':'col-md-8 col-sm-12 col-xs-12 pl-10 pr-10 pointer row'">
-          <div class="mb-5" v-for="(item, idx) in listAssets" :key="idx"  @click="test(item)">
-            <v-card>
+        <div :class="$vuetify.breakpoint.mobile?'col-xl-8 col-lg-8 col-md-8 col-sm-12 col-xs-12 pl-11 pointer row':'col-md-8 col-sm-12 col-xs-12 pl-10 pr-10 pointer row'">
+          <div class="mb-5 col-12" v-for="(item, idx) in listAssets" :key="idx"  @click="test(item)">
+            <v-card  class="col-12">
               <img
                 :src="item.app_images.img_hot_banner | getAppBanner"
                 class="white--text align-center"
                 gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-                width="100%"
+             width="100%"
                 height="250px"
               />
 
@@ -182,6 +182,7 @@
                 font-weigth: bold;
                 color: #26a69a;
                 width: 100%;
+                 border-left: 7px solid teal;
               "
               >Rankings</v-card-title
             >
@@ -237,6 +238,7 @@
               font-weigth: bold;
                 width: 100%;
                 color: #26a69a;
+                 border-left: 7px solid teal;
               "
               >Hot Game Tags</v-card-title
             >
@@ -281,6 +283,7 @@ export default {
     this.fetchHome();
     this.fetchTopRate();
     this.fetchGenres();
+    this.updateUser();
   },
   methods: {
     test(value) {
@@ -304,6 +307,10 @@ export default {
       const { data } = await AssetsRepository.getTopRate(this.page);
       this.listTopRate = data.results;
     },
+    async updateUser() {
+              await this.$store.dispatch("getInfoUser");
+    },
+
   },
 };
 </script>

@@ -132,7 +132,7 @@
                   </v-btn>
                 </div>
 
-                <div style="text-align: left" v-else>
+                <div style="text-align: left"  v-else>
                   <v-btn class="mt-3 mr-2"   color="teal" width="100%" @click="downloadGame(item)" large dark>
                     Download
                     <v-icon dark>mdi-cellphone-android</v-icon>
@@ -160,7 +160,7 @@
                 </div>
               </div>
 
-              <div class="col-xl-4 col-md-4 d-md-flex d-sm-none d-xs-none">
+              <div class="col-xl-4 col-md-4 d-md-flex d-sm-none d-xs-none" :class="$vuetify.breakpoint.mobile ? 'd-none' : null">
                 <v-avatar
                   class="ml-10"
                   size="250"

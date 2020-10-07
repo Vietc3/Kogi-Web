@@ -105,7 +105,7 @@
           </v-card>
 
           <v-card class="col-12 mt-5" elevation="5">
-            <v-card-title class="headline font-weight-bold text-center">
+            <v-card-title class="headline font-weight-bold text-center" style=" border-left: 7px solid teal;"> 
               Details
             </v-card-title>
             <v-divider class="mb-5"></v-divider>
@@ -159,7 +159,7 @@
           <v-expansion-panels accordion>
             <v-expansion-panel class="col-12 mt-5">
               <v-expansion-panel-header
-                class="headline font-weight-bold text-center"
+                class="headline font-weight-bold text-center" style=" border-left: 7px solid teal;"
                 >Description</v-expansion-panel-header
               >
               <v-expansion-panel-content class="text-left">
@@ -170,6 +170,7 @@
             <v-expansion-panel class="col-12 mt-5">
               <v-expansion-panel-header
                 class="headline font-weight-bold text-center"
+                style=" border-left: 7px solid teal;"
                 >Content</v-expansion-panel-header
               >
               <v-expansion-panel-content class="text-left">
@@ -234,9 +235,9 @@
               font-style: oblique;
               width: 100%;
               color: #26a69a;
-              margin-top:0px
-              
-              padding-top:0px !important
+              margin-top:0px;
+              padding-top:0px !important;
+               border-left: 7px solid teal;
 
             "
             >Kogi Store Discover Superb Games</v-card-text
@@ -278,6 +279,7 @@
               color: #26a69a;
               width: 100%;
               padding-top: 0px !important;
+               border-left: 7px solid teal;
             "
             >Similars</v-card-title
           >

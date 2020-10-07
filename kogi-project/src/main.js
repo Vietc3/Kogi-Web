@@ -4,13 +4,17 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import vuetify from '@/plugins/vuetify'
+import firebase from 'firebase';
+import store from './store';
+import firebaseConfig from './firebase/firebaseConfig';
 
+firebase.initializeApp(firebaseConfig);
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
-  router, vuetify,
+  router, vuetify,store,
   components: { App },
   template: '<App/>'
 })
