@@ -308,7 +308,7 @@ export default {
       this.listTopRate = data.results;
     },
     async updateUser() {
-              await this.$store.dispatch("getInfoUser");
+      await this.$store.dispatch("getInfoUser");
     },
 
   },

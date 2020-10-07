@@ -192,6 +192,7 @@
 let brand_icon_default = require("@/assets/unnamed.png");
 import RepositoryFactory from "@/utils/RepositoryFactory";
 const AssetsRepository = RepositoryFactory.get("assets");
+
 import variables from "@/variables";
 export default {
   name: "Rankings",

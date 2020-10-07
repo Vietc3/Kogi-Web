@@ -27,9 +27,7 @@
         class="hidden-sm-and-down pl-10 ml-4"
       />
       <v-spacer />
-      <v-btn icon>
-        <v-icon>mdi-account-circle</v-icon>
-      </v-btn>
+    <profile />
     </v-app-bar>
 
     <v-btn
@@ -57,15 +55,12 @@
       <footerApp />
     </v-main>
 
-
-
-
   </v-app>
 </template>
 <script>
 import sideBar from "../SideBar/index";
 import footerApp from "../Footer/index";
-
+import Profile from './AppProfile.vue';
 export default {
   name: "NavBar",
   data() {
@@ -78,6 +73,7 @@ export default {
   components: {
     sideBar,
     footerApp,
+    Profile
   },
 
   methods: {
