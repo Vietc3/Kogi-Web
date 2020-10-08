@@ -23,10 +23,9 @@
             <v-icon v-else large> mdi-account </v-icon>
           </v-list-item-avatar>
 
-          <v-list-item-content>
-            <v-list-item-title>{{
-              displayName || phoneNumber
-            }}</v-list-item-title>
+           <v-list-item-content>
+            <v-list-item-title>{{ displayName || phoneNumber }}</v-list-item-title>
+            <v-list-item-subtitle>Kogi Point: {{ point }}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
 
@@ -41,6 +40,7 @@
       </v-list>
 
       <v-divider />
+      
       <v-list v-if="displayName || phoneNumber || photoUrl" >
       <v-list-item
         v-for="(item, index) in menuitems"
@@ -53,6 +53,7 @@
         rel="noopener"
         @click="item.click"
       >
+      
         <v-list-item-action v-if="item.icon">
           <v-icon>{{ item.icon }}</v-icon>
         </v-list-item-action>
@@ -79,8 +80,8 @@ export default {
           icon: "mdi-account",
           href: "#",
           title: "Profile",
-          click: (e) => {
-            console.log(e);
+          click: () => {
+            this.profile()
           },
         },
         {
@@ -104,13 +105,15 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["displayName", "photoUrl", "phoneNumber"]),
+    ...mapGetters(["displayName", "photoUrl", "phoneNumber",'point']),
   },
   methods: {
+
+    profile(){ this.$router.push({ name: "InfoAccount" });},
    
     logout() {
       this.$store.dispatch("logOut");
-      this.$router.push({ name: "Login" });
+      this.$router.push({ name: "Home" });
     },
     toggleSettingsPanel() {
       console.log("this.toggleSettingsPanel()111");

@@ -6,9 +6,11 @@ import router from './router'
 import vuetify from '@/plugins/vuetify'
 import firebase from 'firebase';
 import store from './store';
+import Notifications from 'vue-notification'
 import firebaseConfig from './firebase/firebaseConfig';
 
 firebase.initializeApp(firebaseConfig);
+Vue.use(Notifications)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

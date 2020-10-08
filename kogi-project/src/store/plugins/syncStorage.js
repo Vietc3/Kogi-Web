@@ -35,6 +35,7 @@ class SyncStorage {
 
     // init and apply user state from storage
     if (this.initUserState(store)) {
+
       console.log('[vuex.SyncStorage] initUserState');
     } else {
       console.warn('[vuex.SyncStorage] No user state in "Storage"');
@@ -44,6 +45,7 @@ class SyncStorage {
     store.subscribe((mutation, state) => {
       // console.log('storage subscribe', mutation.type);
       if (this.userMutations.includes(mutation.type)) {
+        console.log(state.user);
         // console.log('storage subscribe user_mutations', mutation, state);
         this.setToStorage(`${this.prefix}${this.user}`, JSON.stringify(state.user));
         if (mutation.type === 'SET_TOKEN') {
@@ -105,25 +107,34 @@ class SyncStorage {
   /**
    * Get user info from storage.
    */
-  initUserState(store) {
-   
+  initUserState(store) { 
     const userState =JSON.parse( this.getFromStorage(`${this.prefix}${this.user}`));
-
-    if (userState.displayName===''&&userState.photoURL===''&&userState.phoneNumber===''||!userState) {
-     
+  
+    if (!userState) {
       console.warn('[vuex.SyncStorage] Session expired');
       store.commit('SET_TOKEN', '')
       store.commit('SET_DISPLAY_NAME', '')
       store.commit('SET_PHOTO', '')
       store.commit('SET_PHONE_NUMBER', '')
+      store.commit('SET_POINT','')
+      store.commit('SET_EMAIL','')
+      store.commit('SET_SEX','')
+      store.commit('SET_ID','')
+      store.commit('SET_BIRTHDAY','')
       return false;
     }
 
-    else { 
+    else {
+   
       console.warn('[vuex.SyncStorage] Session active');
       store.commit('SET_DISPLAY_NAME',userState.displayName)
       store.commit('SET_PHOTO',userState.photoUrl)
       store.commit('SET_PHONE_NUMBER', userState.phoneNumber)
+      store.commit('SET_POINT', userState.point)
+      store.commit('SET_EMAIL', userState.email)
+      store.commit('SET_SEX', userState.sex)
+      store.commit('SET_ID', userState.id)
+      store.commit('SET_BIRTHDAY', userState.dayOfBirth)
       return true;
     }
   }

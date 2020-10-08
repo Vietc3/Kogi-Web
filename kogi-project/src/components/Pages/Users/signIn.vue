@@ -1,17 +1,26 @@
 <template>
   <main style="height: 100%">
-    <v-container style="height: 100%">
+    <v-container
+      style="height: 100%"
+      v-if="displayName || phoneNumber || photoUrl"
+    >
+      <v-row style="height: 100%">
+        <v-col>
+          <div class="text-center title teal--text">you are logged in 🥳</div>
+        </v-col>
+      </v-row>
+    </v-container>
+
+    <v-container style="height: 100%" v-else>
       <v-row style="height: 100%">
         <v-col v-if="step === 0">
           <div class="text-center title teal--text">Sign Up With Email 🥳</div>
 
-          <v-alert dense text type="success" v-if="alertSuccess === true">
-            Sign Up Successfully
-          </v-alert>
-          <v-alert dense text type="error" v-if="alertFail === true">
-            {{ message }}
-          </v-alert>
-
+          <notifications
+            group="foo-velocity"
+            position="top center"
+            :speed="500"
+          />
           <div class="mt-5">
             <v-layout row>
               <v-flex xs12 sm6 offset-sm3>
@@ -92,7 +101,6 @@
               </v-flex>
             </v-layout>
           </div>
-          <div id="firebaseui-auth-container" />
         </v-col>
 
         <v-col v-else>
@@ -181,7 +189,7 @@
 /* eslint-disable */
 import firebase from "firebase";
 import * as firebaseui from "firebaseui";
-
+import { mapGetters } from "vuex";
 import "firebaseui/dist/firebaseui.css";
 import RepositoryFactory from "@/utils/RepositoryFactory";
 const UserRepository = RepositoryFactory.get("users");
@@ -204,6 +212,7 @@ export default {
         ? "Passwords do not match"
         : "";
     },
+    ...mapGetters(["displayName", "photoUrl", "phoneNumber"]),
   },
   mounted() {
     const uiConfig = {
@@ -254,6 +263,22 @@ export default {
   },
 
   methods: {
+    show(group, type = "", message) {
+      const text = `
+     ${type}: ${message}
+     
+        Date: ${new Date()}
+      `;
+      this.$notify({
+        group,
+        title: `${type} notification`,
+        text,
+        type,
+        data: {
+          randomNumber: Math.random(),
+        },
+      });
+    },
     async signUpWithEmail() {
       let result = await this.$store.dispatch("signUpWithEmail", {
         email: this.email,
@@ -261,21 +286,13 @@ export default {
       });
 
       if (result.success === false) {
-        this.alertSuccess = false;
-        this.alertFail = true;
         this.message = result.message;
+        this.show("foo-velocity", "error", this.message);
       } else {
-        this.alertFail = false;
-        this.alertSuccess = true;
-
-        setTimeout(() => {
-          this.alertFail = false;
-          this.alertSuccess = false;
-
-          this.step = 1;
-          this.email = "";
-          this.password = "";
-        }, 500);
+        this.show("foo-velocity", "success", this.message);
+        this.step = 1;
+        this.email = "";
+        this.password = "";
       }
     },
 
@@ -286,20 +303,12 @@ export default {
       });
       console.log(result);
       if (result.success === false) {
-        this.alertSuccess = false;
-        this.alertFail = true;
-        this.message = result.message;
+        this.show("foo-velocity", "error", this.message);
       } else {
-        this.alertFail = false;
-        this.alertSuccess = true;
-        setTimeout(() => {
-          this.alertFail = false;
-          this.alertSuccess = false;
-          this.$router.push({ name: "Home" });
-        }, 500);
+        this.show("foo-velocity", "success", this.message);
+        this.$router.push({ name: "Home" });
       }
     },
-
     toggleStatus() {
       this.step === 1 ? (this.step = 0) : (this.step = 1);
     },

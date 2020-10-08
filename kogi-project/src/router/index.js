@@ -8,6 +8,7 @@ import AppAsset from '@/components/Pages/App/index'
 import Categories from '@/components/Pages/Categories/index'
 import Discovery from '@/components/Pages/Discovery/index'
 import SignIn from '@/components/Pages/Users/signIn'
+import Profile from '@/components/Pages/Users/Profile/profile'
 
 
 Vue.use(Router)
@@ -82,6 +83,20 @@ export default new Router({
         name: 'Login',
         component: SignIn,
         meta: { title: 'SignIn', noCache: true }
+      }]
+    },
+
+    {
+      path: '/profile',
+      component: NavarBar,
+      name:'Profile',
+      redirect: '/',
+      children: [
+        {
+        path: '/',
+        name: 'InfoAccount',
+        component: Profile,
+        meta: { title: 'Info', noCache: true }
       }]
     }
 
