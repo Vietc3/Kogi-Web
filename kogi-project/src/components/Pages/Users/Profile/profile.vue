@@ -1,15 +1,13 @@
 <template>
   <v-container>
-    <notifications group="foo-velocity"
-                   position="top center"
-                   :speed="500" />
+    <notifications group="foo-velocity" position="top center" :speed="500" />
     <v-layout row>
       <v-flex xs12 sm6 offset-sm3>
         <v-card>
           <v-card-text>
             <v-container>
               <div class="text-center title teal--text">
-                Information Account 🥳
+                {{ $t(`infomation`) }} 🥳
               </div>
               <form @submit.prevent="submitUpdateUser">
                 <v-layout row class="mt-3">
@@ -24,7 +22,7 @@
                   <v-flex xs12>
                     <v-text-field
                       name="displayName"
-                      label="Display Name"
+                      :label="$t(`displayName`)"
                       id="displayName"
                       v-model="displayName"
                       required
@@ -38,7 +36,7 @@
                     <v-text-field
                       disabled
                       name="email"
-                      label="Email"
+                      :label="$t(`email`)"
                       id="email"
                       v-model="email"
                       required
@@ -51,7 +49,7 @@
                     <v-select
                       :disabled="isDisable"
                       :items="items"
-                      label="Sex"
+                      :label="$t(`sex`)"
                       v-model="sex"
                     ></v-select>
                   </v-flex>
@@ -70,7 +68,7 @@
                           :disabled="isDisable"
                           v-model="computedDateFormatted"
                           hint="MM/DD/YYYY format"
-                          label="Day of birth"
+                          :label="$t(`dayOfBirth`)"
                           prepend-icon="mdi-calendar"
                           readonly
                           v-bind="attrs"
@@ -91,7 +89,7 @@
                     <v-text-field
                       disabled
                       name="phoneNumber"
-                      label="Phone Number"
+                      :label="$t(`phoneNumber`)"
                       id="phoneNumber"
                       v-model="phoneNumber"
                       required
@@ -104,7 +102,7 @@
                     <v-text-field
                       disabled
                       name="point"
-                      label="Kogi Point"
+                      :label="$t(`point`)"
                       id="point"
                       v-model="point"
                       required
@@ -114,15 +112,21 @@
 
                 <v-layout row>
                   <v-flex xs12>
-                    <v-btn type="submit" color="teal" dark :disabled="isDisable"
-                      >Update Account</v-btn
+                    <v-btn
+                      type="submit"
+                      color="teal"
+                      dark
+                      :disabled="isDisable"
+                    >
+                      {{ $t(`confirm`) }}</v-btn
                     >
                     <v-btn
                       color="teal"
                       dark
                       @click="editProfile"
                       :disabled="isDisable"
-                      >Cancel</v-btn
+                    >
+                      {{ $t(`cancel`) }}</v-btn
                     >
 
                     <v-btn
@@ -130,7 +134,8 @@
                       color="teal"
                       dark
                       :disabled="!isDisable"
-                      >Edit Account</v-btn
+                    >
+                      {{ $t(`editAccount`) }}</v-btn
                     >
                   </v-flex>
                 </v-layout>
@@ -200,8 +205,8 @@ export default {
         },
       });
     },
-     clean (group) {
-      this.$notify({ group, clean: true })
+    clean(group) {
+      this.$notify({ group, clean: true });
     },
 
     async submitUpdateUser() {
@@ -214,11 +219,10 @@ export default {
       let { data } = await UsersRepository.updateUser({ userInfo });
       if (data.success === true) {
         this.show("foo-velocity", "success");
-          this.isDisable = !this.isDisable;
-        
-      }
-      else{
-          this.show("foo-velocity", "error");
+        this.isDisable = !this.isDisable;
+        await this.$store.dispatch("getInfoUser");
+      } else {
+        this.show("foo-velocity", "error");
       }
     },
   },

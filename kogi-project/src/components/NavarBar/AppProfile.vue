@@ -34,7 +34,7 @@
             <v-icon>mdi-account</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>Login</v-list-item-title>
+            <v-list-item-title>{{$t('login')}}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -58,7 +58,7 @@
           <v-icon>{{ item.icon }}</v-icon>
         </v-list-item-action>
         <v-list-item-content>
-          <v-list-item-title>{{ item.title }}</v-list-item-title>
+          <v-list-item-title>{{$t(`${item.title}`)}}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
       </v-list>
@@ -79,24 +79,15 @@ export default {
         {
           icon: "mdi-account",
           href: "#",
-          title: "Profile",
+          title: "profile",
           click: () => {
             this.profile()
           },
         },
         {
-          icon: "mdi-settings",
-          href: "#",
-          title: "Setting",
-          click: () => {
-            console.log("this.toggleSettingsPanel()");
-            this.toggleSettingsPanel();
-          },
-        },
-        {
           icon: "mdi-exit-to-app",
           href: "#",
-          title: "Logout",
+          title: "logout",
           click: () => {
             this.logout();
           },
@@ -113,7 +104,7 @@ export default {
    
     logout() {
       this.$store.dispatch("logOut");
-      this.$router.push({ name: "Home" });
+      this.$router.push({ name: "Login" });
     },
     toggleSettingsPanel() {
       console.log("this.toggleSettingsPanel()111");

@@ -12,9 +12,10 @@
     </v-container>
 
     <v-container style="height: 100%" v-else>
+      
       <v-row style="height: 100%">
-        <v-col v-if="step === 0">
-          <div class="text-center title teal--text">Sign Up With Email 🥳</div>
+        <v-col v-if="signUp === true">
+          <div class="text-center title teal--text"> {{$t('SignUpEmail')}} 🥳</div>
 
           <notifications
             group="foo-velocity"
@@ -77,7 +78,7 @@
                               width="100%"
                               dark
                             >
-                              Sign Up
+                              {{$t('signUp')}}
                             </v-btn>
                           </v-flex>
                         </v-layout>
@@ -91,7 +92,7 @@
                             @click.stop="toggleStatus()"
                             dark
                           >
-                            if you have account, please login!
+                             {{$t('pleaseLogin')}}
                           </v-btn>
                         </v-flex>
                       </v-layout>
@@ -101,16 +102,17 @@
               </v-flex>
             </v-layout>
           </div>
+              <div id="firebaseui-auth-container" />
         </v-col>
 
         <v-col v-else>
-          <div class="text-center title teal--text">Login with email 🥳</div>
-          <v-alert dense text type="success" v-if="alertSuccess === true">
-            Login successfully
-          </v-alert>
-          <v-alert dense text type="error" v-if="alertFail === true">
-            {{ message }}
-          </v-alert>
+         
+          <div class="text-center title teal--text"> {{$t('loginEmail')}} 🥳</div>
+           <notifications
+            group="foo-velocity"
+            position="top center"
+            :speed="500"
+          />
           <div class="mt-5">
             <v-layout row>
               <v-flex xs12 sm6 offset-sm3>
@@ -122,7 +124,7 @@
                           <v-flex xs12>
                             <v-text-field
                               name="email"
-                              label="email"
+                              label="Email"
                               id="email"
                               v-model="email"
                               type="email"
@@ -154,7 +156,7 @@
                               dark
                               type="submit"
                             >
-                              Sign In
+                             {{$t('signIn')}}
                             </v-btn>
                           </v-flex>
                         </v-layout>
@@ -163,12 +165,12 @@
                         <v-flex xs12>
                           <v-btn
                             class="mt-3"
-                            @click.once="toggleStatus()"
+                            @click.stop="toggleStatus()"
                             color="teal"
                             width="100%"
                             dark
                           >
-                            if you dont have account, please sign Up!
+                           {{$t('pleaseSignUp')}}
                           </v-btn>
                         </v-flex>
                       </v-layout>
@@ -200,9 +202,7 @@ export default {
       email: "",
       password: "",
       confirmPassword: "",
-      step: 1,
-      alertSuccess: false,
-      alertFail: false,
+     signUp : false,
       message: "",
     };
   },
@@ -290,7 +290,7 @@ export default {
         this.show("foo-velocity", "error", this.message);
       } else {
         this.show("foo-velocity", "success", this.message);
-        this.step = 1;
+        this.signUp = false;
         this.email = "";
         this.password = "";
       }
@@ -310,13 +310,12 @@ export default {
       }
     },
     toggleStatus() {
-      this.step === 1 ? (this.step = 0) : (this.step = 1);
+      this.signUp = !this.signUp;
     },
   },
 };
 </script>
 
 <style  scoped>
-#firebaseui-auth-container {
-}
+
 </style>

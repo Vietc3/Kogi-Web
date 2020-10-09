@@ -144,7 +144,7 @@
                 width: 100%;
                 color: #26a69a;
               "
-              >Kogi Store Discover Superb Games</v-card-title
+              >{{$t('sologan')}}</v-card-title
             >
             <div
               class="grey--text ml-3"
@@ -156,7 +156,7 @@
                 text-align: left;
               "
             >
-              Follow us
+              {{$t('follow')}}
             </div>
             <v-card-actions>
               <v-btn fab dark small color="primary">
@@ -184,7 +184,7 @@
                 width: 100%;
                  border-left: 7px solid teal;
               "
-              >Rankings</v-card-title
+              >{{$t('rankings')}}</v-card-title
             >
             <v-divider class="mb-5"></v-divider>
             <div>
@@ -240,7 +240,7 @@
                 color: #26a69a;
                  border-left: 7px solid teal;
               "
-              >Hot Game Tags</v-card-title
+              >{{$t('hotGame')}}</v-card-title
             >
             <v-divider class="mb-5"></v-divider>
 

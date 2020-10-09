@@ -15,7 +15,7 @@
         ></v-app-bar-nav-icon>
 
         <a href="/" class="white--text" style="text-decoration: none">
-          &nbsp;Kogi Store
+          &nbsp; KOGI STORE
         </a>
       </v-toolbar-title>
       <v-text-field
@@ -23,10 +23,11 @@
         solo-inverted
         hide-details
         prepend-inner-icon="mdi-magnify"
-        label="Search"
+        :label="$t('search')"
         class="hidden-sm-and-down pl-10 ml-4"
       />
       <v-spacer />
+        <localization />
     <profile />
     </v-app-bar>
 
@@ -61,6 +62,7 @@
 import sideBar from "../SideBar/index";
 import footerApp from "../Footer/index";
 import Profile from './AppProfile.vue';
+import Localization from './AppLocalization';
 export default {
   name: "NavBar",
   data() {
@@ -73,7 +75,8 @@ export default {
   components: {
     sideBar,
     footerApp,
-    Profile
+    Profile,
+    Localization
   },
 
   methods: {

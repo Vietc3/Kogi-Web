@@ -5,7 +5,7 @@
         ><v-img class="icon" :src="brand_icon_default"></v-img>
       </v-avatar>
       <div>
-        <v-btn color="teal" large dark> TOP 15 RANKINGS </v-btn>
+        <v-btn color="teal" large dark>{{ $t(`topRanking`)  }}</v-btn>
       </div>
       <v-divider class="mx-10 mt-5"></v-divider>
     </div>
@@ -14,11 +14,11 @@
       <v-btn-toggle v-model="queryBy" tile color="teal" group>
         <v-btn
           v-for="(item, idx) in filterTopAsset"
-          :value="item"
+          :value="item.value"
           width="22%"
           :key="idx"
         >
-          {{ item }}
+          {{ $t(`${item.title}`)  }}
         </v-btn>
       </v-btn-toggle>
     </div>
@@ -123,7 +123,7 @@
                   v-if="$vuetify.breakpoint.mobile === false"
                 >
                   <v-btn class="mt-3 mr-2" @click="downloadGame(item)" color="teal" large dark>
-                    Download
+                    {{$t('download')}}
                     <v-icon dark>mdi-cellphone-android</v-icon>
                   </v-btn>
                   <v-btn class="mt-3" color="teal" large dark>
@@ -134,7 +134,7 @@
 
                 <div style="text-align: left"  v-else>
                   <v-btn class="mt-3 mr-2"   color="teal" width="100%" @click="downloadGame(item)" large dark>
-                    Download
+                   {{$t('download')}}
                     <v-icon dark>mdi-cellphone-android</v-icon>
                   </v-btn>
                   <v-btn class="mt-3" color="teal" width="100%" large dark>
@@ -182,7 +182,7 @@
     <div v-if="loading === false && list.toString() !== ''">
       <v-btn class="mb-3" color="teal" large dark @click="more()">
         <v-icon dark>mdi-view-grid-plus</v-icon>
-        MORE
+        {{$t('more')}}
       </v-btn>
     </div>
   </div>
@@ -205,7 +205,7 @@ export default {
       list: [],
       listTopRate: [],
       page: 1,
-      filterTopAsset: ["Top Rate", "Popular", "New", "Up Coming"],
+      filterTopAsset: [{value:"Top Rate", title:'topRate'}, {value:"Popular", title:'popular'}, {value:"New", title:'new'} , {value:"Up Coming", title:'upcoming'}],
       queryBy: "Top Rate",
     };
   },

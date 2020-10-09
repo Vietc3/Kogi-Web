@@ -19,7 +19,7 @@
         <v-list-item-action>
           <v-icon>{{ routerLink.meta.icon }}</v-icon>
         </v-list-item-action>
-        <v-list-item-content>{{ routerLink.meta.title }}</v-list-item-content>
+        <v-list-item-content>{{ $t(`route.${routerLink.meta.title}`)  }}</v-list-item-content>
       </v-list-item>
     </v-list>
   </v-navigation-drawer>
@@ -38,7 +38,7 @@ export default {
   },
   data: () => {
     return {
-      routerPath:routerPath.options.routes[0].children,
+      routerPath: routerPath.options.routes[0].children
     };
   },
 };

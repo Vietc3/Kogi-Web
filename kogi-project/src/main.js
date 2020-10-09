@@ -8,6 +8,7 @@ import firebase from 'firebase';
 import store from './store';
 import Notifications from 'vue-notification'
 import firebaseConfig from './firebase/firebaseConfig';
+import i18n from './i18n'; // Internationalization
 
 firebase.initializeApp(firebaseConfig);
 Vue.use(Notifications)
@@ -16,6 +17,7 @@ Vue.config.productionTip = false
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  i18n,
   router, vuetify,store,
   components: { App },
   template: '<App/>'

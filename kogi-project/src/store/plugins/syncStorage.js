@@ -1,5 +1,6 @@
 import config from '@/config';
 import user from '@/store/modules/user';
+import settings from '@/store/modules/setting';
 
 /**
  * Vuex plugin for save and sync 'settings' and 'user' from vuex modules.
@@ -11,7 +12,9 @@ class SyncStorage {
     this.prefix = option.prefix || config.prefix;
     this.ttl = option.ttl || config.ttl;
     this.user = 'user';
+    this.settings = 'settings';
     this.userMutations = this.getModuleOptions(user, 'mutations');
+    this.settingsMutations = this.getModuleOptions(settings, 'mutations');
     console.log('[vuex.SyncStorage] option:',
       option.storage || config.storage, this.prefix, this.ttl, option);
   }
@@ -41,7 +44,17 @@ class SyncStorage {
       console.warn('[vuex.SyncStorage] No user state in "Storage"');
     }
 
+
+
     // init and apply settings state from storage
+    if (this.initSettingsState(store)) {
+      console.log('[vuex.SyncStorage] initSettingsState');
+    } else {
+      console.warn('[vuex.SyncStorage] No user settings in "Storage"');
+    }
+
+
+  
     store.subscribe((mutation, state) => {
       // console.log('storage subscribe', mutation.type);
       if (this.userMutations.includes(mutation.type)) {
@@ -51,6 +64,10 @@ class SyncStorage {
         if (mutation.type === 'SET_TOKEN') {
           this.setToStorage(`${this.prefix}ttl`, this.getSeconds(this.ttl));
         }
+      }
+      if (this.settingsMutations.includes(mutation.type)) {
+        // console.log('storage subscribe settings_mutations', mutation, state);
+        this.setToStorage(`${this.prefix}${this.settings}`, JSON.stringify(state.settings));
       }
     });
 
@@ -142,6 +159,14 @@ class SyncStorage {
   /**
    * Get settings from storage.
    */
+  initSettingsState(store) {
+    const settingsState = this.getFromStorage(`${this.prefix}${this.settings}`);
+    if (settingsState) {
+      store.commit('SET_SETTINGS', JSON.parse(settingsState));
+      return true;
+    }
+    return false;
+  }
  
   /**
    * Get data to storage.

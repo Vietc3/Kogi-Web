@@ -81,7 +81,7 @@
                     large
                     dark
                   >
-                    Download
+                   {{$t('download')}}
                     <v-icon dark>mdi-cellphone-android</v-icon>
                   </v-btn>
                   <v-btn class="mt-3" color="teal" large dark>
@@ -92,7 +92,7 @@
 
                 <div class="" v-else>
                   <v-btn class="mt-3"  @click="downloadGame()" color="teal" width="100%" dark>
-                    Download
+                   {{$t('download')}}
                     <v-icon dark>mdi-cellphone-android</v-icon>
                   </v-btn>
                   <v-btn class="mt-3" color="teal" width="100%" dark>
@@ -106,7 +106,7 @@
 
           <v-card class="col-12 mt-5" elevation="5">
             <v-card-title class="headline font-weight-bold text-center" style=" border-left: 7px solid teal;"> 
-              Details
+              {{$t('detail')}}
             </v-card-title>
             <v-divider class="mb-5"></v-divider>
 
@@ -160,7 +160,7 @@
             <v-expansion-panel class="col-12 mt-5">
               <v-expansion-panel-header
                 class="headline font-weight-bold text-center" style=" border-left: 7px solid teal;"
-                >Description</v-expansion-panel-header
+                >{{$t('description')}}</v-expansion-panel-header
               >
               <v-expansion-panel-content class="text-left">
                 "{{ asset.description }}"
@@ -171,7 +171,7 @@
               <v-expansion-panel-header
                 class="headline font-weight-bold text-center"
                 style=" border-left: 7px solid teal;"
-                >Content</v-expansion-panel-header
+                >{{$t('content')}}</v-expansion-panel-header
               >
               <v-expansion-panel-content class="text-left">
                 "{{ asset.content }}"
@@ -182,7 +182,7 @@
           <v-card class="col-12 mt-5" elevation="5">
             <v-card-title>
               <v-icon large left> mdi-message </v-icon>
-              <span class="title font-weight-light">Comment</span>
+              <span class="title font-weight-light">{{$t('comment')}}</span>
             </v-card-title>
 
             <div v-for="(item, idx) in listRatingComment.count" :key="idx">
@@ -240,7 +240,7 @@
                border-left: 7px solid teal;
 
             "
-            >Kogi Store Discover Superb Games</v-card-text
+            > {{$t('sologan')}}</v-card-text
           >
           <div
             class="grey--text ml-3"
@@ -252,7 +252,7 @@
               text-align: left;
             "
           >
-            Follow us
+            {{$t('follow')}}
           </div>
           <v-card-actions>
             <v-btn fab dark small color="primary">
@@ -281,7 +281,7 @@
               padding-top: 0px !important;
                border-left: 7px solid teal;
             "
-            >Similars</v-card-title
+            > {{$t('similar')}}</v-card-title
           >
           <v-divider class="mb-5"></v-divider>
           <div>

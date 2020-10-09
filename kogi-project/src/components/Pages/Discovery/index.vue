@@ -68,7 +68,7 @@
             color="teal"
             outlined
             small
-            v-text="'More'"
+            v-text="$t('more')"
             @click="redirecCategoriesInfo(item)"
           ></v-btn>
         </div>
