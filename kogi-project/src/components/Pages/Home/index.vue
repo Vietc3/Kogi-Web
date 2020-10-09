@@ -50,11 +50,6 @@
         </v-card>
       </div>
     </div>
-
-
-
-
-
     <div :class="$vuetify.breakpoint.mobile?null:'pl-10 pr-10 row'" v-if="loading===false">
       <v-row>
         <div :class="$vuetify.breakpoint.mobile?'col-xl-8 col-lg-8 col-md-8 col-sm-12 col-xs-12 pl-11 pointer row':'col-md-8 col-sm-12 col-xs-12 pl-10 pr-10 pointer row'">
@@ -67,8 +62,6 @@
              width="100%"
                 height="250px"
               />
-
-
               <v-row align="center" class="mx-0" v-if="$vuetify.breakpoint.mobile===false">
                 <v-card-title  style="font-weight: bold; font-size: 15px">
                   <img
@@ -97,8 +90,6 @@
                 </div>
               </v-row>
 
-
-              
               <v-row align="center" class="mx-0" v-else>
                 <v-card-title class="d-flex col-12 " style="font-weight: bold; font-size: 15px">
                   <img
@@ -125,12 +116,7 @@
                   </div>
                 </div>
                 </v-card-title>
-              
               </v-row>
-
-
-
-
             </v-card>
           </div>
         </div>

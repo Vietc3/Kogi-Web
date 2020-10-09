@@ -14,7 +14,7 @@
       <div
         :class="
           $vuetify.breakpoint.mobile
-            ? 'col-md-8 col-sm-12 col-xs-12  pr-5 row'
+            ? 'col-md-12 col-sm-12 col-xs-12  pr-5 row'
             : 'col-md-8 col-sm-12 col-xs-12 pl-10 pr-10 row'
         "
       >
