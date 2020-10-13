@@ -55,7 +55,7 @@
       :drawerProps="drawer"
     />
     <v-main>
-      <div :class="$vuetify.breakpoint.mobile?'col-12 pl-0 pr-0 pb-0':'d-none'"><mobile/></div>
+      <div :class="$vuetify.breakpoint.mobile?'col-12 pl-0 pr-0 pb-0 pt-0':'d-none'"><mobile/></div>
       <router-view origin="center center" />
       <footerApp />
     </v-main>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card class="col-12" elevation="5">
+    <v-card  :class="active===true?'col-12 pb-0':'d-none pb-0'" elevation="5">
       <div class="d-flex justify-space">
         <v-avatar class="ma-3 pointer" size="40" tile>
           <img
@@ -21,7 +21,17 @@
           {{ $t("download") }}
           <v-icon dark>mdi-cellphone-android</v-icon>
         </v-btn>
+           <v-btn
+          class="mt-3 mr-2"
+          @click="close()"
+          color="#14b9c8"
+          small
+          dark
+        >
+          <v-icon dark>mdi-close</v-icon>
+        </v-btn>
       </div>
+   
     </v-card>
   </div>
 </template>
@@ -43,7 +53,7 @@ export default {
     },
   },
   data() {
-    return { listAssets: [] };
+    return { listAssets: [],active:true };
   },
   created() {
     this.fetchHome();
@@ -61,6 +71,9 @@ export default {
         return result.package_id === "sg.kogi.gkplay.apps";
       });
     },
+    close(){
+      this.active=false
+    }
   },
 };
 </script>
