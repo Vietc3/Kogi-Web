@@ -6,7 +6,7 @@
       :class="loading === false ? 'd-none' : null"
       absolute
       bottom
-      color="teal"
+      color="#14b9c8"
       style="margin-bottom: 10px"
     ></v-progress-circular>
 
@@ -16,11 +16,11 @@
         class="col-12 mx-0"
         v-model="queryBy"
         tile
-        color="teal"
+        color="#14b9c8"
         group
       >
         <v-btn
-          style="border: 1px solid teal"
+          style="border: 1px solid #14b9c8"
           v-for="(item, idx) in filterTopAsset"
           outlined
           :value="item"
@@ -56,7 +56,7 @@
         <div class="d-flex">
           <v-card-title
             style="
-              border-left: 7px solid teal;
+              border-left: 7px solid #14b9c8;
               font-size: 15px;
               font-weigth: bold;
               width: 100%;
@@ -65,7 +65,7 @@
           >
           <v-btn
             class="mt-5 mr-5"
-            color="teal"
+            color="#14b9c8"
             outlined
             small
             v-text="$t('more')"

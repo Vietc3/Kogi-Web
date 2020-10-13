@@ -58,7 +58,6 @@ class SyncStorage {
     store.subscribe((mutation, state) => {
       // console.log('storage subscribe', mutation.type);
       if (this.userMutations.includes(mutation.type)) {
-        console.log(state.user);
         // console.log('storage subscribe user_mutations', mutation, state);
         this.setToStorage(`${this.prefix}${this.user}`, JSON.stringify(state.user));
         if (mutation.type === 'SET_TOKEN') {

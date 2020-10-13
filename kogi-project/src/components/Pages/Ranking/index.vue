@@ -5,13 +5,13 @@
         ><v-img class="icon" :src="brand_icon_default"></v-img>
       </v-avatar>
       <div>
-        <v-btn color="teal" large dark>{{ $t(`topRanking`)  }}</v-btn>
+        <v-btn color="#14b9c8" large dark>{{ $t(`topRanking`)  }}</v-btn>
       </div>
       <v-divider class="mx-10 mt-5"></v-divider>
     </div>
 
     <div class="col-12">
-      <v-btn-toggle v-model="queryBy" tile color="teal" group>
+      <v-btn-toggle v-model="queryBy" tile color="#14b9c8" group>
         <v-btn
           v-for="(item, idx) in filterTopAsset"
           :value="item.value"
@@ -29,7 +29,7 @@
       :class="loading === false ? 'd-none' : null"
       absolute
       bottom
-      color="teal"
+      color="#14b9c8"
       style="margin-bottom: 10px"
     ></v-progress-circular>
 
@@ -58,7 +58,7 @@
         v-if="loading === false"
       >
         <div
-          :class="$vuetify.breakpoint.mobile ? 'col-12' : 'mb-5 col-12'"
+          :class="$vuetify.breakpoint.mobile ? 'col-12 paddingRanking' : 'col-12 paddingRanking'"
           height="100%"
         >
           <v-card class="col-12" elevation="5">
@@ -103,14 +103,14 @@
                 <div class="d-flex">
                   <v-btn
                     class="pt-0 ml-4 mr-2"
-                    color="teal"
+                    color="#14b9c8"
                     outlined
                     small
                     v-text="item.genres_code"
                   ></v-btn>
                   <v-btn
                     class="pt-0 mr-2"
-                    color="teal"
+                    color="#14b9c8"
                     outlined
                     small
                     v-text="item.platform_code"
@@ -122,29 +122,29 @@
                   style="text-align: left"
                   v-if="$vuetify.breakpoint.mobile === false"
                 >
-                  <v-btn class="mt-3 mr-2" @click="downloadGame(item)" color="teal" large dark>
+                  <v-btn class="mt-3 mr-2" @click="downloadGame(item)" color="#14b9c8" large dark>
                     {{$t('download')}}
                     <v-icon dark>mdi-cellphone-android</v-icon>
                   </v-btn>
-                  <v-btn class="mt-3" color="teal" large dark>
+                  <v-btn class="mt-3" color="#14b9c8" large dark>
                     Google Play
                     <v-icon dark>mdi-google-play</v-icon>
                   </v-btn>
                 </div>
 
                 <div style="text-align: left"  v-else>
-                  <v-btn class="mt-3 mr-2"   color="teal" width="100%" @click="downloadGame(item)" large dark>
+                  <v-btn :class="$vuetify.breakpoint.sm ? 'col-8 mt-3 mr-2' : 'col-12   mt-3'"  color="#14b9c8"  @click="downloadGame(item)" large dark>
                    {{$t('download')}}
                     <v-icon dark>mdi-cellphone-android</v-icon>
                   </v-btn>
-                  <v-btn class="mt-3" color="teal" width="100%" large dark>
+                  <v-btn :class="$vuetify.breakpoint.sm ? 'col-8 mt-3 mr-2' : 'col-12   mt-3'"  color="#14b9c8" large dark>
                     Google Play
                     <v-icon dark>mdi-google-play</v-icon>
                   </v-btn>
                 </div>
 
                 <div
-                  :class="$vuetify.breakpoint.mobile ? 'd-none' : null"
+                  :class="$vuetify.breakpoint.mobile||$vuetify.breakpoint.sm ? 'd-none' : null"
                   style="height: 100px"
                   @click="redirecAppInfo(item)"
                 >
@@ -180,7 +180,7 @@
     </div>
 
     <div v-if="loading === false && list.toString() !== ''">
-      <v-btn class="mb-3" color="teal" large dark @click="more()">
+      <v-btn class="mb-3" color="#14b9c8" large dark @click="more()">
         <v-icon dark>mdi-view-grid-plus</v-icon>
         {{$t('more')}}
       </v-btn>
@@ -297,5 +297,8 @@ export default {
 
 .pointer {
   cursor: pointer;
+}
+.paddingRanking{
+  padding: 3px;
 }
 </style>

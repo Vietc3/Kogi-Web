@@ -6,7 +6,7 @@
         <v-card>
           <v-card-text>
             <v-container>
-              <div class="text-center title teal--text">
+              <div class="text-center title #14b9c8--text">
                 {{ $t(`infomation`) }} 🥳
               </div>
               <form @submit.prevent="submitUpdateUser">
@@ -114,14 +114,14 @@
                   <v-flex xs12>
                     <v-btn
                       type="submit"
-                      color="teal"
+                      color="#14b9c8"
                       dark
                       :disabled="isDisable"
                     >
                       {{ $t(`confirm`) }}</v-btn
                     >
                     <v-btn
-                      color="teal"
+                      color="#14b9c8"
                       dark
                       @click="editProfile"
                       :disabled="isDisable"
@@ -131,7 +131,7 @@
 
                     <v-btn
                       @click="editProfile"
-                      color="teal"
+                      color="#14b9c8"
                       dark
                       :disabled="!isDisable"
                     >

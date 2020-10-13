@@ -28,6 +28,8 @@ export default {
   description:'Description',
   comment:'Comment',
   detail:'Detail',
+  yourComment:'Your Comment',
+  submitComment:'Send',
 
   //Login
   login:"Login",

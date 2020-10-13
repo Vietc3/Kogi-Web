@@ -48,6 +48,6 @@ export default {
   border-left: 4px solid #a9f5f2;
 }
 .theme--light.v-list {
-    color: #26a69a;
+    color: #14b9c8;
 }
 </style>

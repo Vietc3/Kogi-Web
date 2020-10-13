@@ -27,6 +27,9 @@ export default {
   description:'Mô tả',
   comment:'Bình luận',
   detail:'Chi tiết',
+  yourComment:'Bình luận của bạn',
+  submitComment:'Gửi',
+  
 
   //Login
   login:"Đăng nhập",

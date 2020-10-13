@@ -11,6 +11,10 @@ export default {
     },
 	sendEmailVerify(params) {
 		return RepositoryApp.post(`email/sendEmailVerify`,params)
+	},
+	
+	voteApp(params) {
+		return RepositoryApp.post(`${resource}/voteApp`,params)
     },
 
 }

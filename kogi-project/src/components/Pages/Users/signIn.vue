@@ -6,7 +6,7 @@
     >
       <v-row style="height: 100%">
         <v-col>
-          <div class="text-center title teal--text">you are logged in 🥳</div>
+          <div class="text-center title #14b9c8--text">you are logged in 🥳</div>
         </v-col>
       </v-row>
     </v-container>
@@ -15,7 +15,7 @@
       
       <v-row style="height: 100%">
         <v-col v-if="signUp === true">
-          <div class="text-center title teal--text"> {{$t('SignUpEmail')}} 🥳</div>
+          <div class="text-center title #14b9c8--text"> {{$t('SignUpEmail')}} 🥳</div>
 
           <notifications
             group="foo-velocity"
@@ -38,7 +38,7 @@
                               v-model="email"
                               type="email"
                               required
-                              color="teal"
+                              color="#14b9c8"
                             ></v-text-field>
                           </v-flex>
                         </v-layout>
@@ -74,7 +74,7 @@
                             <v-btn
                               class="mt-3"
                               type="submit"
-                              color="teal"
+                              color="#14b9c8"
                               width="100%"
                               dark
                             >
@@ -87,7 +87,7 @@
                         <v-flex xs12>
                           <v-btn
                             class="mt-3"
-                            color="teal"
+                            color="#14b9c8"
                             width="100%"
                             @click.stop="toggleStatus()"
                             dark
@@ -107,7 +107,7 @@
 
         <v-col v-else>
          
-          <div class="text-center title teal--text"> {{$t('loginEmail')}} 🥳</div>
+          <div class="text-center title #14b9c8--text"> {{$t('loginEmail')}} 🥳</div>
            <notifications
             group="foo-velocity"
             position="top center"
@@ -129,7 +129,7 @@
                               v-model="email"
                               type="email"
                               required
-                              color="teal"
+                              color="#14b9c8"
                             ></v-text-field>
                           </v-flex>
                         </v-layout>
@@ -151,7 +151,7 @@
                           <v-flex xs12>
                             <v-btn
                               class="mt-3"
-                              color="teal"
+                              color="#14b9c8"
                               width="100%"
                               dark
                               type="submit"
@@ -166,7 +166,7 @@
                           <v-btn
                             class="mt-3"
                             @click.stop="toggleStatus()"
-                            color="teal"
+                            color="#14b9c8"
                             width="100%"
                             dark
                           >

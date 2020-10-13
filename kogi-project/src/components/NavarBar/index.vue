@@ -1,13 +1,16 @@
 <template>
+
   <v-app id="inspire">
+   
     <v-app-bar
       :clipped-left="$vuetify.breakpoint.mdAndUp"
       app
-      color="teal lighten-1"
+      color="#14b9c8"
       dark
       height="55px"
     >
-      <v-toolbar-title style="width: 300px;text-align: left;">
+    
+      <v-toolbar-title style="width: 300px; text-align: left">
         <v-app-bar-nav-icon
           @click.stop="handleClick"
           class="ma-2"
@@ -27,9 +30,10 @@
         class="hidden-sm-and-down pl-10 ml-4"
       />
       <v-spacer />
-        <localization />
-    <profile />
+      <localization />
+      <profile />
     </v-app-bar>
+  
 
     <v-btn
       v-scroll="onScroll"
@@ -39,7 +43,7 @@
       fixed
       bottom
       right
-      color="teal lighten-1"
+      color="#14b9c8"
       @click="toTop"
     >
       <v-icon>keyboard_arrow_up</v-icon>
@@ -50,19 +54,19 @@
       v-on:drawerPropsChange="handleEmit"
       :drawerProps="drawer"
     />
-
     <v-main>
-      <router-view  origin="center center" />
+      <div :class="$vuetify.breakpoint.mobile?'col-12 pl-0 pr-0 pb-0':'d-none'"><mobile/></div>
+      <router-view origin="center center" />
       <footerApp />
     </v-main>
-
   </v-app>
 </template>
 <script>
 import sideBar from "../SideBar/index";
 import footerApp from "../Footer/index";
-import Profile from './AppProfile.vue';
-import Localization from './AppLocalization';
+import Profile from "./AppProfile.vue";
+import Localization from "./AppLocalization";
+import Mobile from "./AppDownloadMobile";
 export default {
   name: "NavBar",
   data() {
@@ -76,7 +80,8 @@ export default {
     sideBar,
     footerApp,
     Profile,
-    Localization
+    Localization,
+    Mobile,
   },
 
   methods: {
