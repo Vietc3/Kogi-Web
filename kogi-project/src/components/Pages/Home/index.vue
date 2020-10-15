@@ -59,10 +59,10 @@
                 <img
                     class="nameIcon"
                     :src="item.app_images.app_icon | getAppBanner"
-                    height="30px"
-                    max-width="10%"
+                    height="40px"
+                    max-width="15%"
                   />
-              <div style="font-size:13px"> {{ item.name }}</div> 
+              <div style="font-size:15px; font-weight:bold"> {{ item.name }}</div> 
                 <v-spacer></v-spacer>
                 <span :class="$vuetify.breakpoint.mobile ? 'd-none' :'text--lighten-2 caption mr-2'" style="color:#14b9c8">
                   ({{ item.metrics.popularity }}
@@ -84,7 +84,7 @@
         <v-col
           class="col-md-4 d-sm-none d-md-flex pointer pd-0 ranking row"
           :style="$vuetify.breakpoint.mobile ? 'display:none' : null"
-          style="padding-top: 0px"
+          style="padding-top: 0px;margin-left: 11px;"
         >
           <v-card class="mb-5" style="width: 100%; height: 10%" elevation="5">
             <v-card-title

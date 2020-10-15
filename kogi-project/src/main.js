@@ -9,6 +9,7 @@ import store from './store';
 import Notifications from 'vue-notification'
 import firebaseConfig from './firebase/firebaseConfig';
 import i18n from './i18n'; // Internationalization
+import './permission' // permission control
 
 firebase.initializeApp(firebaseConfig);
 Vue.use(Notifications)

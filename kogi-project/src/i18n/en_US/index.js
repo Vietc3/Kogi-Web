@@ -59,6 +59,17 @@ export default {
   copyRight:'Discover Superb Games. Copyright © 2020 Kogi Store. All rights Reserved. Age Restriction: Our products are only suitable for 10 and over Privacy Policy',
   address:'Address: 10 Pho Quang, Ward 2, Tan Binh, Ho Chi Minh City',
   phone:'Phone number: 08 54399681',
+
+  //errors
+  errors: {
+    whoops: 'Whoops',
+    back: 'Get me out of here!',
+    301: 'Moved Permanently',
+    401: 'Unauthorized',
+    403: 'Forbidden',
+    404: 'Not Found',
+    500: 'Internal Server Error',
+  },
   
   
   

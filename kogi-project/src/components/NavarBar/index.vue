@@ -54,7 +54,7 @@
       v-on:drawerPropsChange="handleEmit"
       :drawerProps="drawer"
     />
-    <v-main>
+    <v-main style="background-color:#f2f2f2">
       <div :class="$vuetify.breakpoint.mobile?'col-12 pl-0 pr-0 pb-0 pt-0':'d-none'"><mobile/></div>
       <router-view origin="center center" />
       <footerApp />

@@ -67,8 +67,7 @@ const user = {
                         await commit('SET_TOKEN', user.refreshToken);
                         let params = {
                             id_token: idToken,
-                            uid: user.uid,
-                            fcm_token: user.refreshToken
+                            uid: user.uid,                                                
                         }
 
                         let data = await UsersRepository.activeUser(params);
@@ -92,6 +91,7 @@ const user = {
         },
 
         signUpWithEmail: async ({ commit }, payload) => {
+
             let result = await firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password).catch(function (error) {
                 // Handle Errors here.
                 var errorCode = error.code;
@@ -99,20 +99,6 @@ const user = {
                 return { success: false, message: errorMessage };
                 // ...
             });
-            await firebase.auth().signOut().then(async () => {
-                await commit('SET_DISPLAY_NAME', '')
-                await commit('SET_PHOTO', '')
-                await commit('SET_PHONE_NUMBER', '')
-                await commit('SET_TOKEN', '')
-                await commit('SET_POINT', '')
-                await commit('SET_EMAIL', '')
-                await commit('SET_SEX', '')
-                await commit('SET_ID', '')
-                await commit('SET_BIRTHDAY','')
-            }).catch(function (error) {
-
-            });
-
             return result;
 
         },

@@ -29,6 +29,17 @@ export default {
   detail:'Chi tiết',
   yourComment:'Bình luận của bạn',
   submitComment:'Gửi',
+
+  //Errors
+  errors: {
+    whoops: 'Rất tiếc',
+    back: 'Trở lại!',
+    301: 'Moved Permanently',
+    401: 'Lỗi xác thực',
+    403: 'Forbidden',
+    404: 'Không tìm thấy trang',
+    500: 'Internal Server Error',
+  },
   
 
   //Login

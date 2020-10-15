@@ -1,6 +1,6 @@
 <template>
   <div>
-       <v-progress-circular
+    <v-progress-circular
       :active="loading"
       :indeterminate="loading"
       :class="loading === false ? 'd-none' : null"
@@ -10,10 +10,10 @@
       style="margin-bottom: 10px"
     ></v-progress-circular>
 
-
-    <div id="buttonGroup" class="pt-2 row" v-if="loading===false">
+    <div id="buttonGroup"  style="padding-left: 18px;padding-right: 18px" class="pt-2 row" v-if="loading === false">
       <v-btn-toggle
         class="col-12 mx-0"
+       
         v-model="queryBy"
         tile
         color="#14b9c8"
@@ -32,7 +32,7 @@
       </v-btn-toggle>
     </div>
 
-    <div id="inspire" class="pl-8 pr-8 row">
+    <div id="inspire" class="pl-7 pr-7 row">
       <v-carousel height="380px">
         <v-carousel-item v-for="(item, i) in listAssetsCarousel" :key="i">
           <img
@@ -44,7 +44,24 @@
           />
         </v-carousel-item>
       </v-carousel>
-      <v-divider class="mx-10 mt-5"></v-divider>
+      <div class="genres">
+        <v-chip
+          @click="
+            redirecCategoriesInfo({
+              genres_code: genres.code,
+            })
+          "
+          class="ma-2 pointer"
+          color="#14b9c8"
+          dark
+          v-for="(genres, index) in listGenres"
+          :key="index + 4"
+        >
+          {{ genres.name }}
+        </v-chip>
+      </div>
+
+      <v-divider class="mx-10"></v-divider>
     </div>
 
     <div
@@ -150,13 +167,15 @@ export default {
       this.$router.push({ name: "Info", params: { id: value.id } });
     },
 
-     redirecCategoriesInfo(value) {
-      this.$router.push({ name: "Categories", params: { genres_code: value.genres_code } });
+    redirecCategoriesInfo(value) {
+      this.$router.push({
+        name: "Categories",
+        params: { genres_code: value.genres_code },
+      });
     },
 
-
     async fetchHome() {
-       this.loading=true
+      this.loading = true;
       const { data } = await AssetsRepository.getHome();
       this.listAssets = data.results;
       this.listAssetsCarousel = this.listAssets.filter(
@@ -166,7 +185,7 @@ export default {
     },
 
     async fetchGenres() {
-       this.loading=true
+      this.loading = true;
       const { data } = await GenresRepository.get();
       this.listGenres = data.results;
       this.listGenres.forEach(async (genres) => {
@@ -177,7 +196,7 @@ export default {
           assets: dataGenres,
         });
       });
-      this.loading=false
+      this.loading = false;
     },
 
     async fetchAssetByGenres(genres_code) {
@@ -208,5 +227,15 @@ export default {
 }
 .pointer {
   cursor: pointer;
+}
+.genres {
+  margin-top: 5px;
+  width: 100%;
+  height: 7%;
+  overflow-x: auto;
+  white-space: nowrap; /*using nowrap*/
+}
+.chipCustom:hover {
+  background-color: #a9f5f2;
 }
 </style>

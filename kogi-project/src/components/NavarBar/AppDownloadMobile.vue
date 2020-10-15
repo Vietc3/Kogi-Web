@@ -1,6 +1,9 @@
 <template>
   <div>
-    <v-card  :class="active===true?'col-12 pb-0':'d-none pb-0'" elevation="5">
+    <v-card
+      :class="active === true ? 'col-12 pb-0' : 'd-none pb-0'"
+      elevation="5"
+    >
       <div class="d-flex justify-space">
         <v-avatar class="ma-3 pointer" size="40" tile>
           <img
@@ -21,17 +24,10 @@
           {{ $t("download") }}
           <v-icon dark>mdi-cellphone-android</v-icon>
         </v-btn>
-           <v-btn
-          class="mt-3 mr-2"
-          @click="close()"
-          color="#14b9c8"
-          small
-          dark
-        >
+        <v-btn class="mt-3 mr-2" @click="close()" color="#14b9c8" small dark>
           <v-icon dark>mdi-close</v-icon>
         </v-btn>
       </div>
-   
     </v-card>
   </div>
 </template>
@@ -43,7 +39,7 @@ let brand_icon_default = require("@/assets/icon-default.png");
 import variables from "@/variables";
 export default {
   name: "AppMobile",
- 
+
   filters: {
     getAppBanner(value) {
       if (value === "") {
@@ -53,17 +49,15 @@ export default {
     },
   },
   data() {
-    return { listAssets: [],active:true };
+    return { listAssets: [{ app_images: "" }], active: true };
   },
   created() {
     this.fetchHome();
   },
   methods: {
-       downloadGame(asset) {
+    downloadGame(asset) {
       window.location.href =
-        variables.urlImage +
-        "/" +
-        asset.app[asset.app.length - 1].apk_url;
+        variables.urlImage + "/" + asset.app[asset.app.length - 1].apk_url;
     },
     async fetchHome() {
       const { data } = await AssetsRepository.get();
@@ -71,9 +65,9 @@ export default {
         return result.package_id === "sg.kogi.gkplay.apps";
       });
     },
-    close(){
-      this.active=false
-    }
+    close() {
+      this.active = false;
+    },
   },
 };
 </script>

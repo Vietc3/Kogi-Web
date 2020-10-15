@@ -88,26 +88,25 @@
                     Google Play
                     <v-icon dark>mdi-google-play</v-icon>
                   </v-btn>
-                </div>
-
-                <div class="" v-else>
+                </div>            
+              </div>
+            </div>
+               <div class="d-flex" v-if="$vuetify.breakpoint.mobile === true" >
                   <v-btn
-                    class="mt-3"
+                    class="mt-3 mr-3 ml-3"
                     @click="downloadGame()"
                     color="#14b9c8"
-                    width="100%"
+                    width="45%"
                     dark
                   >
                     {{ $t("download") }}
                     <v-icon dark>mdi-cellphone-android</v-icon>
                   </v-btn>
-                  <v-btn class="mt-3" color="#14b9c8" width="100%" dark>
+                  <v-btn class="mt-3" color="#14b9c8" width="45%" dark>
                     Google Play
                     <v-icon dark>mdi-google-play</v-icon>
                   </v-btn>
                 </div>
-              </div>
-            </div>
           </v-card>
 
           <v-card class="col-12 mt-5" elevation="5">
@@ -149,7 +148,7 @@
               </div>
 
               <div>
-                <div class="d-flex">
+                <div :class="$vuetify.breakpoint.mobile?'d-flex mt-2':'d-flex'">
                   <v-icon color="#14b9c8" fab dark>mdi-star-circle</v-icon>
                   <v-card-text class="text-left">{{
                     asset.metrics.vote_average
@@ -427,7 +426,7 @@ export default {
       listSimilar: [],
       listRatingComment: [],
       loading: true,
-      userRating: "",
+      userRating: 0,
       userComment: "",
 
       valid: true,

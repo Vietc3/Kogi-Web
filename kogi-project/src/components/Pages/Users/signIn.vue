@@ -2,7 +2,7 @@
   <main style="height: 100%">
     <v-container
       style="height: 100%"
-      v-if="displayName || phoneNumber || photoUrl"
+      v-if="id"
     >
       <v-row style="height: 100%">
         <v-col>
@@ -212,7 +212,7 @@ export default {
         ? "Passwords do not match"
         : "";
     },
-    ...mapGetters(["displayName", "photoUrl", "phoneNumber"]),
+    ...mapGetters(["displayName", "photoUrl", "phoneNumber",'id']),
   },
   mounted() {
     const uiConfig = {
@@ -280,10 +280,13 @@ export default {
       });
     },
     async signUpWithEmail() {
+
       let result = await this.$store.dispatch("signUpWithEmail", {
         email: this.email,
         password: this.password,
       });
+
+await this.$store.dispatch("logOut");
 
       if (result.success === false) {
         this.message = result.message;
@@ -293,6 +296,7 @@ export default {
         this.signUp = false;
         this.email = "";
         this.password = "";
+
       }
     },
 
